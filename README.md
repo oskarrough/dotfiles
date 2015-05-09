@@ -66,16 +66,22 @@ sudo gem install bundler
 npm install -g bower gulp ember-cli grunt-cli surge
 ```
 
+## Setup GitHub and Bitbucket authentication
+
+* https://help.github.com/articles/generating-ssh-keys/
+* https://confluence.atlassian.com/display/BITBUCKET/Set+up+SSH+for+Git
+
 ## More software
 
-If you're clever, you install these using cask.
+If you're clever, you install these using (homebrew) cask.
 
 - [iTerm](https://iterm2.com/downloads.html)
 - [Dropbox](https://www.dropbox.com/downloading)
 - [1Password](https://agilebits.com/onepassword/mac)
 - [Sublime Text 3](http://www.sublimetext.com/3)
 - [Transmit](http://panic.com/transmit/)
-- [VLC](http://www.videolan.org/vlc/index.html)
+- [Sourcetree](https://www.sourcetreeapp.com/)
+- [VLC](http://www.videolan.org/)
 - [Transmission](http://www.transmissionbt.com/download/)
 - [Kaleidoscope](http://kaleidoscopeapp.com)
 - [Google Chrome](https://www.google.com/intl/en/chrome/browser/)
