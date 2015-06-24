@@ -16,20 +16,25 @@ Stop Apple from spying and disable mouse acceleration:
 
 [Install Homebrew](http://mxcl.github.com/homebrew/). It'll also ask you to install some xcode tools which you should let it do. When it's done, do:
 
-```BASH
+```bash
 brew doctor
-brew install node
+brew install node git
 ```
 
 ## Installing OS X applications
 
 To install apps without downloading and tedious mouse dragging, we can install using [Homebrew cask](http://caskroom.io/):
 
-`brew install caskroom/cask/brew-cask`
+```bash
+brew install caskroom/cask/brew-cask
+brew tap caskroom/versions
+```
 
 Then follow this pattern to install something:
 
-`brew cask install sublime-text`
+`brew cask install sublime-text3 atom dropbox 1password firefox google-chrome`
+
+If you need more info, go here https://github.com/caskroom/homebrew-cask/blob/master/USAGE.md.
 
 ## Configure Sublime Text
 
