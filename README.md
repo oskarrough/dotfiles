@@ -27,6 +27,8 @@ To finish installing Fish, follow the instructions in the Terminal or run these:
 ```
 echo '/usr/local/bin/fish' | sudo tee -a /etc/shells
 chsh -s /usr/local/bin/fish
+curl -sL get.fisherman.sh | fish
+fisher install z
 ```
 
 If you want some colors, check [iterm2colorschemes.com](http://iterm2colorschemes.com).
