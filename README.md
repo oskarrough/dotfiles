@@ -2,6 +2,12 @@
 
 After reinstalling OS X, here's what I normally do to configure it for personal use focused on development.
 
+Run these two to set the keyboard repeat rates faster:
+```
+defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)
+defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
+```
+
 ## 1. Software
 
 Before anything, run Apple Software Update, update everything and install Xcode. While it's happening, do this:
