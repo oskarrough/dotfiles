@@ -35,6 +35,6 @@ nnoremap <leader>w :w<CR>
 " Use ; for commands
 nnoremap ; :
 
-" Maps the ,ev and ,sv keys to edit/reload the vim config
+" Maps the <space-ev> and <space-sv> keys to edit/reload the vim config
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :sv $MYVIMRC<CR>
