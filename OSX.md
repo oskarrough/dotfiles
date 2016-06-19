@@ -33,8 +33,13 @@ To finish installing Fish, follow the instructions in the Terminal or run these:
 ```
 echo '/usr/local/bin/fish' | sudo tee -a /etc/shells
 chsh -s /usr/local/bin/fish
+```
+
+Set up Fisherman.sh
+
+```
 curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
-fisher install mono z
+fisher install mono z fzf
 ```
 
 If you want some colors, check [iterm2colorschemes.com](http://iterm2colorschemes.com).
@@ -52,8 +57,6 @@ Remember to setup Dropbox sync with Alfred, iTerm and 1password.
 ## Install some more "essential" stuff
 
 ```
-sudo gem update --system
-sudo gem install git-up
 n latest
 npm i -g npm@latest
 npm install -g bower browser-sync ember-cli empty-trash-cli gulp-cli n release-it surge trash-cli xo
