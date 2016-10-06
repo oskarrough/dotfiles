@@ -59,7 +59,7 @@ Remember to setup Dropbox sync with Alfred, iTerm and 1password.
 ```
 n latest
 npm i -g npm@latest
-npm install -g bower browser-sync ember-cli empty-trash-cli gulp-cli n release-it surge trash-cli xo
+npm install -g bower browser-sync diff-so-fancy ember-cli empty-trash-cli gulp-cli n release-it surge trash-cli xo
 ```
 
 ## Set up SSH

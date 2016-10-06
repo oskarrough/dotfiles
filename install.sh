@@ -9,6 +9,12 @@
  rm ~/.config/nvim/init.vim
  rm ~/.config/i3/config
 
+# Create folders (if they don't exist)
+
+mkdir -p ~/.config/fish
+mkdir -p ~/.config/nvim
+mkdir -p ~/.config/i3
+
 # Create symlinks
 
 dotfiles=${PWD}
