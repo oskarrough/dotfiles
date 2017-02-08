@@ -100,23 +100,3 @@ nmap <silent> <leader>es :sv $MYVIMRC<CR>
 " Specify where python3 is
 let g:python3_host_prog = '/usr/bin/python3'
 
-" Enable deoplete plugin
-" let g:deoplete#enable_at_startup = 1
-
-" <C-h>, <BS>: close popup and delete backword char.
-" imap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-" imap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
-
-" " <CR>: close popup and save indent.
-" imap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-" function! s:my_cr_function() abort
-"     return deoplete#close_popup() . "\<CR>"
-" endfunction
-
-" deoplete auto close
-" autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-
-" deoplete tab-complete
-" imap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-" " tern
-" autocmd FileType javascript nmap <silent> <buffer> gb :TernDef<CR>

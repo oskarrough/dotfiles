@@ -23,7 +23,7 @@ And set keyboard repeat to as fast as possible in the System Preferences.
 
 ```
 brew doctor
-brew install git node fish
+brew install git node fish yarn mas
 fish
 hgdf
 ```
