@@ -25,7 +25,7 @@ And set keyboard repeat to as fast as possible in the System Preferences.
 brew doctor
 brew install git node fish
 fish
-set fish_greeting
+hgdf
 ```
 
 To finish installing Fish, follow the instructions in the Terminal or run these:
@@ -35,20 +35,16 @@ echo '/usr/local/bin/fish' | sudo tee -a /etc/shells
 chsh -s /usr/local/bin/fish
 ```
 
-Set up Fisherman.sh
+Set up [Fisherman.sh](curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher) (plugins for fish)
 
 ```
-curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
-fisher install mono z fzf
+https://github.com/fisherman/fisherman#install
+fisher install z fzf
 ```
-
-If you want some colors, check [iterm2colorschemes.com](http://iterm2colorschemes.com).
 
 ## Installing applications with Homebrew cask
 
-- Install [Homebrew cask](http://caskroom.io/) by running `brew install caskroom/cask/brew-cask`.
-
-Then follow this pattern to install stuff:
+Use `brew cask install` to install OS X applications.
 
 `brew cask install alfred iterm2 sublime-text3 google-chrome dropbox 1password vlc`
 
@@ -59,7 +55,7 @@ Remember to setup Dropbox sync with Alfred, iTerm and 1password.
 ```
 n latest
 npm i -g npm@latest
-npm install -g bower browser-sync diff-so-fancy ember-cli empty-trash-cli gulp-cli n release-it surge trash-cli xo
+npm install -g browser-sync diff-so-fancy ember-cli empty-trash-cli gulp-cli n release-it surge trash-cli xo
 ```
 
 ## Set up SSH
