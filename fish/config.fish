@@ -19,9 +19,17 @@ set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 
 set -g PATH ~/.config/yarn/global/node_modules/.bin $PATH
 
+if test -d ~/.npm-global/bin
+	set -g PATH ~/.npm-global/bin $PATH
+end
+
 if test -d /usr/local/sbin
 	set -gx PATH /usr/local/sbin $PATH
 end
+
+# if test -d ~/go/bin
+# 	set -gx GOPATH "/home/oskar/go/bin"
+# end
 
 # Linux set keyboard repeat delay and rate
 if type -q xset
@@ -41,17 +49,18 @@ if test -d /home/user/.linuxbrew
 end
 
 # Aliases
+abbr --add lint 'prettier --write --use-tabs --single-quote --no-semi --no-bracket-spacing'
+
+# Git aliases
 abbr --add gs 'clear ;and git status -sb'
+abbr --add gp 'git push origin HEAD'
+abbr --add gd 'git diff'
+abbr --add gcm 'git commit'
+abbr --add gco 'git checkout'
+abbr --add gb 'git branch'
 abbr --add gup 'git stash ;and git pull --rebase ;and git stash apply'
 abbr --add gl 'git log --oneline --decorate' # Also shows tags!
-abbr --add glog "git log --graph \
+abbr --add glg "git log --graph \
 	 --abbrev-commit \
 	 --date=relative \
 	 --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset'"
-abbr --add gp 'git push origin HEAD'
-abbr --add gd 'git diff'
-abbr --add gcm 'git commit -m'
-abbr --add gca 'git commit -a'
-abbr --add gco 'git checkout'
-abbr --add gb 'git branch'
-
