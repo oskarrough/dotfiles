@@ -28,16 +28,17 @@ fish
 hgdf
 ```
 
-To finish installing Fish, follow the instructions in the Terminal or run these:
+To change the default shell to use Fish, run this:
 
 ```
 echo '/usr/local/bin/fish' | sudo tee -a /etc/shells
 chsh -s /usr/local/bin/fish
 ```
 
-Set up [Fisherman.sh](curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher) (plugins for fish)
+Optionally install [Fisherman.sh](https://github.com/fisherman/fisherman#install) (fish package manager) and a few plugins
 
 ```
+curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
 https://github.com/fisherman/fisherman#install
 fisher install z fzf
 ```
@@ -46,7 +47,7 @@ fisher install z fzf
 
 Use `brew cask install` to install OS X applications.
 
-`brew cask install alfred iterm2 sublime-text3 google-chrome dropbox 1password vlc`
+`brew cask install alfred iterm2 sublime-text3 google-chrome dropbox 1password vlc yarn`
 
 Remember to setup Dropbox sync with Alfred, iTerm and 1password.
 
@@ -55,7 +56,7 @@ Remember to setup Dropbox sync with Alfred, iTerm and 1password.
 ```
 n latest
 npm i -g npm@latest
-npm install -g browser-sync diff-so-fancy ember-cli empty-trash-cli gulp-cli n release-it surge trash-cli xo
+npm install -g diff-so-fancy ember-cli empty-trash-cli trash-cli n release-it surge xo
 ```
 
 ## Set up SSH
