@@ -85,3 +85,8 @@ And this one as well to use Sublime for `git commit`:
 ```
 git config --global core.editor " '/usr/local/bin/subl' -n -w"
 ```
+
+Vim-mode in Sublime:
+
+- Add this to user settings: `"ignored_packages": [],` (aka remove "Vintage" from ignored packages)
+- Run `defaults write com.sublimetext.3 ApplePressAndHoldEnabled -bool false` to enable key-repeat
