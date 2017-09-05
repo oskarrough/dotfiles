@@ -62,6 +62,22 @@ npm install -g browser-sync diff-so-fancy ember-cli empty-trash-cli gulp-cli n r
 
 Without SSH, you'll have to enter your password every time you `git clone` something which isn't fun. So run `ssh-keygen` and follow the steps - choose the default filename and give it a passphrase. Next use `cat ~/.ssh/id_rsa.pub | pbcopy` to copy the key and paste it into your accounts on [GitHub](https://github.com/settings/ssh) and [Bitbucket](https://bitbucket.org/account/user/oskarrough/ssh-keys/).
 
+## Neovim on OS X
+
+https://github.com/neovim/neovim/wiki/Installing-Neovim
+
+To use the deoplete and Far vim plugins, we need python 3 installed.
+
+```
+brew install python3
+```
+
+And add the path (`which python3`) to the nvim config:
+
+```
+let g:python3_host_prog = '/usr/local/bin/python3'
+```
+
 ### Configure Sublime Text
 
 Install [Package Manager for ST3](https://sublime.wbond.net/installation#st3) and install the package "Package Syncing". Then you need to set the sync folder and enable it:
