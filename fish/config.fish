@@ -13,6 +13,7 @@ set -gx fish_greeting
 # Also remember: echo /.git/ > ~/.agignore
 set -gx FZF_DEFAULT_COMMAND 'ag --hidden -g ""'
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+set -U FZF_FIND_FILE_COMMAND "$FZF_DEFAULT_COMMAND"
 
 # Use the diff-so-fancy package (get it with npm)
 # git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
@@ -50,6 +51,7 @@ end
 
 # Aliases
 abbr --add lint 'prettier --write --use-tabs --single-quote --no-semi --no-bracket-spacing'
+abbr --add vi 'vim'
 
 # Git aliases
 abbr --add gs 'clear ;and git status -sb'

@@ -1,19 +1,18 @@
 " PLUGINS: General
 
 call plug#begin('~/.vim/plugged')
-Plug 'editorconfig/editorconfig-vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-vinegar'
+Plug 'editorconfig/editorconfig-vim'
+" let g:EditorConfig_core_mode = 'external_command'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'brooth/far.vim'
-Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'maxboisvert/vim-simple-complete'
-" Plug 'mhinz/vim-startify'
-" Plug 'mattn/emmet-vim'
+Plug 'w0rp/ale'
+" Plug 'shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'brooth/far.vim'
 
 " PLUGINS: Appearances
 
@@ -23,30 +22,36 @@ Plug 'vim-airline/vim-airline'
 
 " PLUGINS: Syntax
 
-Plug 'othree/html5.vim'
-Plug 'hail2u/vim-css3-syntax'
+" Plug 'othree/html5.vim'
+" Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
 Plug 'mustache/vim-mustache-handlebars'
-Plug 'elixir-lang/vim-elixir'
 Plug 'posva/vim-vue'
-Plug 'leafgarland/typescript-vim'
-" Plug 'digitaltoad/vim-pug'
+" Plug 'elixir-lang/vim-elixir'
+" Plug 'leafgarland/typescript-vim'
+Plug 'digitaltoad/vim-pug'
 " Plug 'lambdatoast/elm.vim'
 call plug#end()
 
+" let g:ale_linters = {
+" \   'javascript': ['xo'],
+" \}
+" let g:ale_sign_error = '!!'
+
 " APPEARANCE
 
-colorscheme one
-set background=light " The `one` theme also supports "dark"
-set termguicolors " True color support
+" set termguicolors " True color support
+" set background=light " The `one` theme also supports "dark"
 " let g:airline_theme='one' " Use `one` for vim-airline as well
 let g:one_allow_italics = 1
+colorscheme one
 
 " Make NETRW a bit nicer
-let g:netrw_liststyle = 3
-let g:netrw_winsize = 30
-" let g:netrw_banner = 0
-" let g:netrw_browse_split = 4
+"http://vimcasts.org/episodes/the-file-explorer/
+let g:netrw_banner = 0 " hides the banner
+let g:netrw_liststyle = 3 " tree-view
+" let g:netrw_browse_split = 4 " open in previous window
+" let g:netrw_winsize = -30 " percentage width of netrw window
 " let g:netrw_altv = 1
 
 " Show list of buffers and which branch
@@ -54,10 +59,10 @@ let g:airline#extensions#tabline#enabled = 1 " Show all buffers when there's onl
 " let g:airline#extensions#branch#enabled = 1 " Not sure what this is
 
 " Enable powerline fonts
-let g:airline_powerline_fonts=1
-if !exists('g:airline_symbols')
-	let g:airline_symbols = {}
-endif
+" let g:airline_powerline_fonts=1
+" if !exists('g:airline_symbols')
+" 	let g:airline_symbols = {}
+" endif
 
 " Enable deoplete plugin
 let g:deoplete#enable_at_startup = 1
@@ -67,7 +72,7 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " GENERAL SETTINGS
 
-" Make new splits open towards right and bottom (normally it's inversed)
+" Make new splits open towards right and bottom (by default it is the opposite)
 set splitright
 set splitbelow
 
@@ -80,6 +85,7 @@ set tabstop=2
 set gdefault " Search entire file by default (as opposed to line)
 set ignorecase " case-insensitive searching
 set smartcase " but become case-sensitive if you type uppercase
+set inccommand=split " neovim 2.0 feature. live preview when using :%s/foo/bar
 
 set clipboard+=unnamedplus " Always copy to system clipboard
 set cursorline " Highlight the current line
@@ -87,7 +93,7 @@ set hidden " Allow buffer switching even if unsaved
 set number " Show line numbers
 set noswapfile " Disable creating *.swp files
 set relativenumber " Use relative line numbers
-set scrolloff=4 " Start scrolling three lines earlier
+" set scrolloff=4 " Start scrolling three lines earlier
 
 " KEYBINDINGS
 
@@ -102,7 +108,7 @@ imap jk <ESC>
 " nmap <silent> <leader>p :GFiles<CR>
 nmap <leader>p :Files<CR>
 nmap <leader>b :Buffers<CR>
-nmap <leader>r :History<CR>
+nmap <leader>h :History<CR>
 nmap <leader>gf :GitFiles<CR>
 imap <c-x><c-l> <plug>(fzf-complete-line)
 nmap <leader>a :Ag
@@ -115,15 +121,16 @@ nmap <leader>s :w<CR>
 nmap ; :
 
 " Make the tab key match bracket pairs in normal+visual mode.
-nmap <tab> %
-vmap <tab> %
+" nmap <tab> %
+" vmap <tab> %
 
 " Maps the <space-ev> and <space-sv> keys to edit/reload the vim config
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>es :sv $MYVIMRC<CR>
+nmap <silent> <leader>es :so $MYVIMRC<CR>
 
 " Specify where python3 is
-let g:python3_host_prog = '/usr/bin/python3'
+" let g:python3_host_prog = '/usr/bin/python3'
+let g:python3_host_prog = '/usr/local/bin/python3'
 
 " Set *.vue files to open as html. Makes for nicer rendering.
 " autocmd BufNewFile,BufRead *.vue set filetype=html
