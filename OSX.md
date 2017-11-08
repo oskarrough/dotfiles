@@ -57,7 +57,7 @@ yarn global add diff-so-fancy ember-cli empty-trash-cli trash-cli release-it
 
 ## Set up SSH
 
-Without SSH, you'll have to enter your password every time you `git clone` something which isn't fun. So run `ssh-keygen` and follow the steps - choose the default filename and give it a passphrase. Next use `cat ~/.ssh/id_rsa.pub | pbcopy` to copy the key and paste it into your accounts on [GitHub](https://github.com/settings/ssh) and [Bitbucket](https://bitbucket.org/account/user/oskarrough/ssh-keys/).
+Without SSH, you'll have to enter your password every time you `git clone` something which isn't fun. So run `ssh-keygen` and follow the steps - choose the default filename and give it a passphrase. Next use `cat ~/.ssh/id_rsa.pub | pbcopy` to copy the key and paste it into your accounts on [GitHub](https://github.com/settings/keys) and [GitLab](https://gitlab.com/profile/keys).
 
 ### Configure Sublime Text
 
