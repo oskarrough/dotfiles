@@ -24,11 +24,9 @@ And set keyboard repeat to as fast as possible in the System Preferences.
 ```
 brew doctor
 brew install git node fish yarn mas
-fish
-hgdf
 ```
 
-To change the default shell to use Fish, run this:
+To change the default shell to use Fish, run this and afterwards restart your shell.
 
 ```
 echo '/usr/local/bin/fish' | sudo tee -a /etc/shells
@@ -47,16 +45,14 @@ fisher install z fzf
 
 Use `brew cask install` to install OS X applications.
 
-`brew cask install alfred iterm2 sublime-text3 google-chrome dropbox 1password vlc yarn`
+`brew cask install alfred iterm2 sublime-text3 google-chrome dropbox 1password vlc`
 
 Remember to setup Dropbox sync with Alfred, iTerm and 1password.
 
 ## Install some more "essential" stuff
 
 ```
-n latest
-npm i -g npm@latest
-npm install -g diff-so-fancy ember-cli empty-trash-cli trash-cli n release-it surge xo
+yarn global add diff-so-fancy ember-cli empty-trash-cli trash-cli release-it
 ```
 
 ## Set up SSH
