@@ -61,7 +61,7 @@ Without SSH, you'll have to enter your password every time you `git clone` somet
 
 ### Configure Sublime Text
 
-Install [Package Manager for ST3](https://sublime.wbond.net/installation#st3) and install the package "Package Syncing". Then you need to set the sync folder and enable it:
+Install [Package Manager for ST3](https://sublime.wbond.net/installation#st3) by doing `cmd+shift+p` and doing "Install package control". Then install the package "Package Syncing". Then you need to set the sync folder and enable it:
 
 ```
 Package Syncing: Define… "/Users/oskar/Dropbox/Apps/Sublime Text/sync"
@@ -74,12 +74,6 @@ If you installed Sublime using `brew cask` you can ignore this. Otherwise run th
 
 ```
 ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
-```
-
-And this one as well to use Sublime for `git commit`:
-
-```
-git config --global core.editor " '/usr/local/bin/subl' -n -w"
 ```
 
 Vim-mode in Sublime:
