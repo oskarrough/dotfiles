@@ -45,9 +45,9 @@ fisher install z fzf
 
 Use `brew cask install` to install OS X applications.
 
-`brew cask install alfred iterm2 sublime-text3 google-chrome dropbox 1password vlc`
+`brew cask install google-chrome dropbox 1password iterm2 sublime-text3 vlc alfred the_silver_searcher `
 
-Remember to setup Dropbox sync with Alfred, iTerm and 1password.
+Remember to setup Dropbox sync with Alfred, iTerm and 1Password.
 
 ## Install some more "essential" stuff
 
@@ -78,5 +78,4 @@ ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/loca
 
 Vim-mode in Sublime:
 
-- Add this to user settings: `"ignored_packages": [],` (aka remove "Vintage" from ignored packages)
 - Run `defaults write com.sublimetext.3 ApplePressAndHoldEnabled -bool false` to enable key-repeat
