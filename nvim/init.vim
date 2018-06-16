@@ -1,5 +1,7 @@
 " PLUGINS 
+
 call plug#begin('~/.vim/plugged')
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'brooth/far.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -7,45 +9,40 @@ Plug 'junegunn/fzf.vim'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
-" Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
-if has('nvim')
-	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-	Plug 'Shougo/deoplete.nvim'
-	Plug 'roxma/nvim-yarp'
-	Plug 'roxma/vim-hug-neovim-rpc'
-endif
+" Plug 'w0rp/ale'
 
-" PLUGINS: Syntax
-Plug 'w0rp/ale'
-Plug 'digitaltoad/vim-pug'
-Plug 'elixir-editors/vim-elixir'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'mustache/vim-mustache-handlebars'
-Plug 'othree/html5.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'posva/vim-vue'
-Plug 'vim-airline/vim-airline'
+" Plugins for appearance
+Plug 'rakr/vim-one'
 Plug 'nanotech/jellybeans.vim'
-" Plug 'leafgarland/typescript-vim'
-" Plug 'slashmili/alchemist.vim'
-" Plug 'lambdatoast/elm.vim'
-" Plug 'rakr/vim-one'
+Plug 'itchyny/lightline.vim'
+Plug 'Lokaltog/vim-monotone'
+Plug 'morhetz/gruvbox'
+Plug 'sheerun/vim-polyglot'
 call plug#end()
 
-let g:ale_linters = {
-\   'javascript': ['prettier'],
-\}
+set termguicolors " Enable more colors
 
-" APPEARANCE
+" colorscheme jellybeans
+" colorscheme gruvbox
+colorscheme one
+" colorscheme monotone
+set background=light
 
-set termguicolors " True color support
-colorscheme jellybeans
-" set background=light
-" let g:airline_theme='one' " Use `one` for vim-airline as well
-" colorscheme one
+" Configure the bottom status bar (vim-lightline)
+" 1. Hide the "-- INSERT --" mode status Because lightline shows mode
+" set noshowmode
+" 2. Customize what to show
+" let g:lightline.colorscheme = 'one'
+let g:lightline = {
+	\ 'colorscheme': 'one',
+	\ 'active': {
+	\   'left': [['mode', 'paste'], ['filename', 'modified']],
+	\  'right': [['filetype']]
+	\ },
+\ }
 
 " Make new splits open towards right and bottom (by default it is the opposite)
 set splitright
@@ -94,9 +91,8 @@ imap jk <ESC>
 nmap <leader>p :Files<CR>
 nmap <leader>b :Buffers<CR>
 nmap <leader>h :History<CR>
-nmap <leader>gf :GitFiles<CR>
+" nmap <leader>gf :GitFiles<CR>
 imap <c-x><c-l> <plug>(fzf-complete-line)
-
 " Note, the :Ag command comes from fzf.vim
 nmap <leader>a :Ag
 
@@ -124,3 +120,8 @@ endif
 " Set *.vue files to open as html. Makes for nicer rendering.
 " autocmd BufNewFile,BufRead *.vue set filetype=html
 autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html
+
+let g:ale_fixers = {
+\   'javascript': ['eslint'],
+\}
+
