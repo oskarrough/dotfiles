@@ -24,20 +24,19 @@ And set keyboard repeat to as fast as possible in the System Preferences.
 ```
 brew doctor
 brew install git node fish yarn mas
-fish
-hgdf
 ```
 
-To finish installing Fish, follow the instructions in the Terminal or run these:
+To change the default shell to use Fish, run this and afterwards restart your shell.
 
 ```
 echo '/usr/local/bin/fish' | sudo tee -a /etc/shells
 chsh -s /usr/local/bin/fish
 ```
 
-Set up [Fisherman.sh](curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher) (plugins for fish)
+Optionally install [Fisherman.sh](https://github.com/fisherman/fisherman#install) (fish package manager) and a few plugins
 
 ```
+curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
 https://github.com/fisherman/fisherman#install
 fisher install z fzf
 ```
@@ -46,21 +45,19 @@ fisher install z fzf
 
 Use `brew cask install` to install OS X applications.
 
-`brew cask install alfred iterm2 sublime-text3 google-chrome dropbox 1password vlc`
+`brew cask install google-chrome dropbox 1password iterm2 sublime-text3 vlc alfred the_silver_searcher `
 
-Remember to setup Dropbox sync with Alfred, iTerm and 1password.
+Remember to setup Dropbox sync with Alfred, iTerm and 1Password.
 
 ## Install some more "essential" stuff
 
 ```
-n latest
-npm i -g npm@latest
-npm install -g browser-sync diff-so-fancy ember-cli empty-trash-cli gulp-cli n release-it surge trash-cli xo
+yarn global add diff-so-fancy ember-cli empty-trash-cli trash-cli release-it
 ```
 
 ## Set up SSH
 
-Without SSH, you'll have to enter your password every time you `git clone` something which isn't fun. So run `ssh-keygen` and follow the steps - choose the default filename and give it a passphrase. Next use `cat ~/.ssh/id_rsa.pub | pbcopy` to copy the key and paste it into your accounts on [GitHub](https://github.com/settings/ssh) and [Bitbucket](https://bitbucket.org/account/user/oskarrough/ssh-keys/).
+Without SSH, you'll have to enter your password every time you `git clone` something which isn't fun. So run `ssh-keygen` and follow the steps - choose the default filename and give it a passphrase. Next use `cat ~/.ssh/id_rsa.pub | pbcopy` to copy the key and paste it into your accounts on [GitHub](https://github.com/settings/keys) and [GitLab](https://gitlab.com/profile/keys).
 
 ## Neovim on OS X
 
@@ -80,7 +77,7 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 
 ### Configure Sublime Text
 
-Install [Package Manager for ST3](https://sublime.wbond.net/installation#st3) and install the package "Package Syncing". Then you need to set the sync folder and enable it:
+Install [Package Manager for ST3](https://sublime.wbond.net/installation#st3) by doing `cmd+shift+p` and doing "Install package control". Then install the package "Package Syncing". Then you need to set the sync folder and enable it:
 
 ```
 Package Syncing: Define… "/Users/oskar/Dropbox/Apps/Sublime Text/sync"
@@ -95,8 +92,6 @@ If you installed Sublime using `brew cask` you can ignore this. Otherwise run th
 ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
 ```
 
-And this one as well to use Sublime for `git commit`:
+Vim-mode in Sublime:
 
-```
-git config --global core.editor " '/usr/local/bin/subl' -n -w"
-```
+- Run `defaults write com.sublimetext.3 ApplePressAndHoldEnabled -bool false` to enable key-repeat
