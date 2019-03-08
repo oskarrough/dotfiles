@@ -95,3 +95,9 @@ ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/loca
 Vim-mode in Sublime:
 
 - Run `defaults write com.sublimetext.3 ApplePressAndHoldEnabled -bool false` to enable key-repeat
+
+### FZF
+
+ctrl+t
+ctrl+r
+alt+c
