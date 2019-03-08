@@ -1,127 +1,137 @@
-" PLUGINS 
+" Oskars neovim config
 
+" ===========================
+" Plugins
+" ===========================
 call plug#begin('~/.vim/plugged')
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'brooth/far.vim'
-Plug 'editorconfig/editorconfig-vim'
+Plug 'tpope/vim-commentary'
+Plug 'suy/vim-context-commentstring' " proper comments for <script> tags etc.
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'sgur/vim-editorconfig'
+Plug 'sheerun/vim-polyglot' " syntax highlighting for everything
+Plug 'tpope/vim-surround'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'terryma/vim-multiple-cursors'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-vinegar'
-" Plug 'w0rp/ale'
+Plug 'tpope/vim-fugitive' " git stuff
+Plug 'tpope/vim-vinegar' " nicer (netrw) file browser
+Plug 'w0rp/ale' " linter
+" Plug 'brooth/far.vim' " search/replace
+
+" Plugins for neovim only
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+endif
 
 " Plugins for appearance
-Plug 'rakr/vim-one'
-Plug 'nanotech/jellybeans.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'Lokaltog/vim-monotone'
-Plug 'morhetz/gruvbox'
-Plug 'sheerun/vim-polyglot'
+Plug 'maximbaz/lightline-ale'
+Plug 'nanotech/jellybeans.vim'
+" Plug 'vim-scripts/ScrollColors'
+Plug 'rakr/vim-one'
+" Plug 'morhetz/gruvbox'
+" Plug 'w0ng/vim-hybrid'
 call plug#end()
 
-set termguicolors " Enable more colors
+" ===========================
+" Settings
+" ===========================
 
-" colorscheme jellybeans
-" colorscheme gruvbox
-colorscheme one
-" colorscheme monotone
-set background=light
-
-" Configure the bottom status bar (vim-lightline)
-" 1. Hide the "-- INSERT --" mode status Because lightline shows mode
-" set noshowmode
-" 2. Customize what to show
-" let g:lightline.colorscheme = 'one'
-let g:lightline = {
-	\ 'colorscheme': 'one',
-	\ 'active': {
-	\   'left': [['mode', 'paste'], ['filename', 'modified']],
-	\  'right': [['filetype']]
-	\ },
-\ }
-
-" Make new splits open towards right and bottom (by default it is the opposite)
-set splitright
-set splitbelow
-
-" instead of ctrl-w then j, it’s just ctrl-j:
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-" Use tabs 
-set noexpandtab
-" And set tab-size
-set shiftwidth=2
-set tabstop=2
-
-" Search
-set gdefault " Search entire file by default (as opposed to line)
-set ignorecase " case-insensitive searching
-set smartcase " but become case-sensitive if you type uppercase
-
+set background=dark
+colorscheme jellybeans
 set clipboard+=unnamedplus " Always copy to system clipboard
 set cursorline " Highlight the current line
 set hidden " Allow buffer switching even if unsaved
 set number " Show line numbers
 set noswapfile " Disable creating *.swp files
 set relativenumber " Use relative line numbers
+set scrolloff=2 " Start scrolling X lines before top/end
 
+" Make new splits open towards right and bottom (by default it is the opposite)
+set splitright
+set splitbelow
 
-" AUTOCOMPLETE: with deoplete and use the tab-key
-let g:deoplete#enable_at_startup = 1
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" Configure indentation to use tabs instead of spaces
+set noexpandtab
+set shiftwidth=2
+set tabstop=2
 
+" Search
+set ignorecase " case-insensitive searching
+set smartcase " but become case-sensitive if you type uppercase
 
+" ===========================
 " KEYBINDINGS
+" ===========================
 
-" Use space as leader (instead of backslash). Set this before other bindings.
+" Use space as leader (instead of backslash) 
 let mapleader = "\<Space>"
 
-" Because leaving insert mode should be easy. Just kidding.
-imap jk <ESC>
-
-" Map <space-p> to switch files
-" nmap <silent> <leader>p :GFiles<CR>
-nmap <leader>p :Files<CR>
-nmap <leader>b :Buffers<CR>
-nmap <leader>h :History<CR>
-" nmap <leader>gf :GitFiles<CR>
-imap <c-x><c-l> <plug>(fzf-complete-line)
-" Note, the :Ag command comes from fzf.vim
-nmap <leader>a :Ag
-
-" Shortcut to save (write) a file
-" nmap <leader>w :w<CR>
-nmap <leader>s :w<CR>
-
-" Use ; to enter command mode (one less key)
+" Use semi-colon to enter command mode because it's one less key
 nmap ; :
 
-" Maps the <space-ev> and <space-sv> keys to edit/reload the vim config
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
+" Quickly edit and reload/source the config.
+nmap <silent> <leader>ev :edit $MYVIMRC<CR>
 nmap <silent> <leader>es :so $MYVIMRC<CR>
+
+" toggle between buffers
+nnoremap <leader><leader> <c-^>
+
+" instead of ctrl-w then j, it’s just ctrl-j:
+noremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Shortcut to save (write) a file
+nmap <leader>w :w<CR>
 
 " Shortcut to run prettier
 nmap <Leader>f <Plug>(Prettier)
 
+" Move by line
+nnoremap j gj
+nnoremap k gk
+
+" ===========================
+" Plugin config
+" ===========================
+
 " Specify where python3 is
 if has('mac')
 	let g:python3_host_prog = '/usr/local/bin/python3'
-else
+elseif has('unix')
 	let g:python3_host_prog = '/usr/bin/python3'
 endif
 
-" Set *.vue files to open as html. Makes for nicer rendering.
-" autocmd BufNewFile,BufRead *.vue set filetype=html
-autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html
+" Map <space-p> to switch files
+" Note, the :Ag command comes from fzf.vim
+let g:fzf_layout = { 'down': '~40%' }
+nmap <silent> <leader>p :GFiles<CR>
+nmap <leader>p :Files<CR>
+nmap <leader>b :Buffers<CR>
+nmap <leader>h :History<CR>
+nmap <leader>a :Ag<CR> 
+nmap <leader>gf :GitFiles<CR>
+" imap <c-x><c-l> <plug>(fzf-complete-line)
 
-let g:ale_fixers = {
-\   'javascript': ['eslint'],
-\}
+" no idea what this is
+inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
+  \ 'prefix': '^.*$',
+  \ 'source': 'rg -n ^ --color always',
+  \ 'options': '--ansi --delimiter : --nth 3..',
+  \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
+
+
+" Deoplate config.
+let g:deoplete#enable_at_startup = 1
+" Use tab to complete.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" When lightline is enabled, we can hide the default status indicator
+set noshowmode
+
+let g:lightline = {
+	\ 'colorsheme': 'jellybeans',
+	\ }
 

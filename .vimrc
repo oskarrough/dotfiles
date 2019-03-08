@@ -1,19 +1,24 @@
+" Oskars vim config
+
+
 " Plugins
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-commentary'
-Plug 'lifepillar/vim-cheat40'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'andreypopp/vim-colors-plain'
 call plug#end()
 
-" Enable FZF via Homebrew
-set rtp+=/usr/local/opt/fzf
-
-" Enable syntax highlighting
 syntax enable
+colorscheme plain
 
-" Use relative numbering
-set relativenumber 
-" And show current line-number
 set number
+set relativenumber 
+set incsearch
+
+" Better autocomplete?
+" set path+=**
+" set wildmenu
 
 " Configure indentation to tabs
 set shiftwidth=2
@@ -25,6 +30,8 @@ nmap ; :
 " Use space as leader (instead of backslash). Set this before other bindings.
 let mapleader = "\<Space>"
 
-" Because leaving insert mode should be easy. Just kidding.
-imap jk <ESC>
-
+" Note, the :Ag command comes from fzf.vim
+nmap <leader>p :Files<CR>
+nmap <leader>gf :GitFiles<CR>
+nmap <leader>b :Buffers<CR>
+nmap <leader>a :Ag<CR> 
