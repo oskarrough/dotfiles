@@ -10,10 +10,7 @@ defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
 
 ## 1. Software
 
-Before anything, run Apple Software Update, update everything and install Xcode. While it's happening, do this:
-
-- Stop Apple from spying: [fix-macosx.com](https://fix-macosx.com/)
-- Disable mouse acceleration: [smoothmouse.com](http://smoothmouse.com) or [Steel Series Exact Mouse Tool](http://downloads.steelseriescdn.com/drivers/tools/steelseries-exactmouse-tool.dmg)
+Before anything, run Apple Software Update, update everything and install Xcode.
 
 And set keyboard repeat to as fast as possible in the System Preferences.
 
@@ -23,7 +20,7 @@ And set keyboard repeat to as fast as possible in the System Preferences.
 
 ```
 brew doctor
-brew install git node fish yarn mas
+brew install git fish yarn mas
 ```
 
 To change the default shell to use Fish, run this and afterwards restart your shell.
