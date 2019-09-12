@@ -5,40 +5,39 @@
 " ===========================
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-commentary'
-Plug 'suy/vim-context-commentstring' " proper comments for <script> tags etc.
+" Plug 'suy/vim-context-commentstring' " proper comments for <script> tags etc.
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'sgur/vim-editorconfig'
 Plug 'sheerun/vim-polyglot' " syntax highlighting for everything
 Plug 'tpope/vim-surround'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive' " git stuff
-Plug 'tpope/vim-vinegar' " nicer (netrw) file browser
+" Plug 'tpope/vim-vinegar' " nicer (netrw) file browser
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'w0rp/ale' " linter
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}} 
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'brooth/far.vim' " search/replace
 
-" Plugins for neovim only
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-endif
-
 " Plugins for appearance
-Plug 'itchyny/lightline.vim'
-Plug 'maximbaz/lightline-ale'
-Plug 'nanotech/jellybeans.vim'
-" Plug 'vim-scripts/ScrollColors'
+" Plug 'nanotech/jellybeans.vim'
+" Plug 'chriskempson/base16-vim'
+" Plug 'itchyny/lightline.vim'
+" Plug 'maximbaz/lightline-ale'
 Plug 'rakr/vim-one'
 " Plug 'morhetz/gruvbox'
 " Plug 'w0ng/vim-hybrid'
+Plug 'vim-scripts/ScrollColors'
 call plug#end()
 
 " ===========================
 " Settings
 " ===========================
 
-set background=dark
-colorscheme jellybeans
+set termguicolors
+" colorscheme base16-default-dark
+set background=light
+colorscheme one
 set clipboard+=unnamedplus " Always copy to system clipboard
 set cursorline " Highlight the current line
 set hidden " Allow buffer switching even if unsaved
@@ -46,6 +45,7 @@ set number " Show line numbers
 set noswapfile " Disable creating *.swp files
 set relativenumber " Use relative line numbers
 set scrolloff=2 " Start scrolling X lines before top/end
+set incsearch
 
 " Make new splits open towards right and bottom (by default it is the opposite)
 set splitright
@@ -104,18 +104,18 @@ elseif has('unix')
 	let g:python3_host_prog = '/usr/bin/python3'
 endif
 
-" Map <space-p> to switch files
 " Note, the :Ag command comes from fzf.vim
-let g:fzf_layout = { 'down': '~40%' }
 nmap <silent> <leader>p :GFiles<CR>
 nmap <leader>p :Files<CR>
 nmap <leader>b :Buffers<CR>
+" nmap <leader>b :ls<CR>
+" nnoremap <leader>b :ls<cr>:b<space>
 nmap <leader>h :History<CR>
 nmap <leader>a :Ag<CR> 
 nmap <leader>gf :GitFiles<CR>
 " imap <c-x><c-l> <plug>(fzf-complete-line)
 
-" no idea what this is
+" this is some enhanced line autocomplete
 inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
   \ 'prefix': '^.*$',
   \ 'source': 'rg -n ^ --color always',
@@ -124,14 +124,28 @@ inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
 
 
 " Deoplate config.
-let g:deoplete#enable_at_startup = 1
-" Use tab to complete.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" let g:deoplete#enable_at_startup = 1
+" Configure deoplete to use tab
+" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
 
 " When lightline is enabled, we can hide the default status indicator
-set noshowmode
-
+" set noshowmode
 let g:lightline = {
-	\ 'colorsheme': 'jellybeans',
+      \ 'colorscheme': 'jellybeans',
+	\ 'active': {
+	\   'left': [ [ 'mode', 'paste' ],
+	\             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+	\ },
+	\ 'component_function': {
+	\   'cocstatus': 'coc#status'
+	\ },
 	\ }
-
