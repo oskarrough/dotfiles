@@ -1,18 +1,15 @@
 # How I like to setup my OSX
 
-After reinstalling OS X, here's what I normally do to configure it for personal use focused on development.
+After reinstalling OS X, this it how I configure it.
 
-Run these two to set the keyboard repeat rates faster:
+Run Apple Software Update and update everything.
+
+Make keys repeat faster when you hold them down:
+
 ```
 defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)
 defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
 ```
-
-## 1. Software
-
-Before anything, run Apple Software Update, update everything and install Xcode.
-
-And set keyboard repeat to as fast as possible in the System Preferences.
 
 ## 2. Homebrew and Fish
 
@@ -42,35 +39,13 @@ fisher install z fzf
 
 Use `brew cask install` to install OS X applications.
 
-`brew cask install google-chrome dropbox 1password iterm2 sublime-text3 vlc alfred the_silver_searcher `
+`brew cask install firefox dropbox iterm2 sublime-text3 visual-studio-code rectangles vlc alfred the_silver_searcher`
 
-Remember to setup Dropbox sync with Alfred, iTerm and 1Password.
-
-## Install some more "essential" stuff
-
-```
-yarn global add diff-so-fancy ember-cli empty-trash-cli trash-cli release-it
-```
+Remember to setup Alfred and iTerm to use my Dropbox sync.
 
 ## Set up SSH
 
 Without SSH, you'll have to enter your password every time you `git clone` something which isn't fun. So run `ssh-keygen` and follow the steps - choose the default filename and give it a passphrase. Next use `cat ~/.ssh/id_rsa.pub | pbcopy` to copy the key and paste it into your accounts on [GitHub](https://github.com/settings/keys) and [GitLab](https://gitlab.com/profile/keys).
-
-## Neovim on OS X
-
-https://github.com/neovim/neovim/wiki/Installing-Neovim
-
-To use the deoplete and Far vim plugins, we need python 3 installed.
-
-```
-brew install python3
-```
-
-And add the path (`which python3`) to the nvim config:
-
-```
-let g:python3_host_prog = '/usr/local/bin/python3'
-```
 
 ### Configure Sublime Text
 
