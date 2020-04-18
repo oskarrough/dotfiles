@@ -2,52 +2,65 @@
 
 After reinstalling OS X, this it how I configure it.
 
-Run Apple Software Update and update everything.
+## Install Homebrew and update the system
 
-Make keys repeat faster when you hold them down:
+- Install [Homebrew](http://mxcl.github.com/homebrew/)
+- Run `brew install mas` and use `mas` to upgrade your system
+
+## Make keys repeat faster when you hold them down:
 
 ```
 defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)
 defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
 ```
 
-## 2. Homebrew and Fish
+## Installing applications with Homebrew cask
 
-- Install [Homebrew](http://mxcl.github.com/homebrew/). Then:
+Use `brew cask install` to install OS X applications.
 
-```
-brew doctor
-brew install git fish yarn mas
-```
+`brew cask install firefox iterm2 dropbox visual-studio-code rectangles vlc alfred the_silver_searcher`
 
-To change the default shell to use Fish, run this and afterwards restart your shell.
+## Fish Shell
+
+` brew install fish`
+
+To finish, run this and restart your shell.
 
 ```
 echo '/usr/local/bin/fish' | sudo tee -a /etc/shells
 chsh -s /usr/local/bin/fish
 ```
 
-Optionally install [Fisherman.sh](https://github.com/fisherman/fisherman#install) (fish package manager) and a few plugins
+### FZF and z
 
-```
-curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
-https://github.com/fisherman/fisherman#install
-fisher install z fzf
-```
+1. Install the [Fisher](https://github.com/jorgebucaran/fisher#install) package manager
+2. `fisher install z fzf`
 
-## Installing applications with Homebrew cask
-
-Use `brew cask install` to install OS X applications.
-
-`brew cask install firefox dropbox iterm2 sublime-text3 visual-studio-code rectangles vlc alfred the_silver_searcher`
-
-Remember to setup Alfred and iTerm to use my Dropbox sync.
+With fzf we can use this in the terminal: `ctrl+t`, `ctrl+r` and `alt+c`.
+With z we can jump to any directory in our history with fuzzy finding `z downloads`.
 
 ## Set up SSH
 
-Without SSH, you'll have to enter your password every time you `git clone` something which isn't fun. So run `ssh-keygen` and follow the steps - choose the default filename and give it a passphrase. Next use `cat ~/.ssh/id_rsa.pub | pbcopy` to copy the key and paste it into your accounts on [GitHub](https://github.com/settings/keys) and [GitLab](https://gitlab.com/profile/keys).
+Without SSH, you'll have to enter your password every time you `git clone`. And that's no fun. 
 
-### Configure Sublime Text
+- Run `ssh-keygen` and follow the steps
+- Choose the default filename and give it a passphrase.
+- Copy the key with `cat ~/.ssh/id_rsa.pub | pbcopy` and paste it into your accounts on [GitHub](https://github.com/settings/keys) and [GitLab](https://gitlab.com/profile/keys).
+
+## Visual Studio Code
+
+- Enable `vscodevim` plugin
+- Add to settings.json
+
+```
+"vim.handleKeys": {
+  "<C-w>": false,
+  "<C-b>": false,
+  "<C-f>": false
+}
+```
+
+## Sublime Text
 
 Install [Package Manager for ST3](https://sublime.wbond.net/installation#st3) by doing `cmd+shift+p` and doing "Install package control". Then install the package "Package Syncing". Then you need to set the sync folder and enable it:
 
@@ -67,9 +80,3 @@ ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/loca
 Vim-mode in Sublime:
 
 - Run `defaults write com.sublimetext.3 ApplePressAndHoldEnabled -bool false` to enable key-repeat
-
-### FZF
-
-ctrl+t
-ctrl+r
-alt+c
