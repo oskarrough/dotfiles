@@ -10,9 +10,9 @@ When in Windows, you can your Ubuntu home folder at `C:\Users\Oskar\AppData\Loca
 ## Fish shell
 
 ```
-sudo apt-add-repository ppa:fish-shell/release-2
-sudo apt-get update
-sudo apt-get install fish
+sudo apt update
+sudo apt upgrade
+sudo apt install fish
 ```
 
 To finish installing Fish, follow the instructions in the Terminal or run these:
@@ -20,13 +20,13 @@ To finish installing Fish, follow the instructions in the Terminal or run these:
 ```
 echo '/usr/bin/fish' | sudo tee -a /etc/shells
 chsh -s /usr/bin/fish
-```
-
-Set up [Fisherman.sh](curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher) (plugins for fish)
 
 ```
-https://github.com/fisherman/fisherman#install
-fisher install z fzf
+
+Set up [Fisher](https://github.com/jorgebucaran/fisher#install) (plugins for fish)
+
+```
+fisher add jethrokuan/z jorgebucaran/fish-nvm
 ```
 
 ## Set up shared SSH keys with Windows 10 + Bash on Ubuntu
@@ -45,4 +45,3 @@ cp -R /mnt/c/Users/Oskar/.ssh/* ~/.ssh/
 chmod 600 ~/.ssh/id_rsa
 chmod 644 ~/.ssh/id_rsa.pub
 ```
-
