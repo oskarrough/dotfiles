@@ -1,3 +1,5 @@
 [user]
 	name = Oskar Rough
 	email = oskar@rough.dk
+[core]
+	editor = vim
