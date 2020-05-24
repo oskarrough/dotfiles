@@ -3,23 +3,30 @@ set noswapfile
 
 " Plugins
 call plug#begin('~/.vim/plugged')
+Plug 'sheerun/vim-polyglot' 
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'andreypopp/vim-colors-plain'
+" Plug 'andreypopp/vim-colors-plain'
 Plug 'sgur/vim-editorconfig'
-Plug 'prettier/vim-prettier'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+Plug 'rakr/vim-one'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 call plug#end()
 
 " Colors
 syntax enable
-colorscheme plain
 set bg=light
+colorscheme one
+" colorscheme plain
+" colorscheme jellybeans
 
 " overwrite line number color
-highlight LineNr ctermfg=252
-highlight CursorLineNr ctermfg=16
+" highlight LineNr ctermfg=252
+" highlight CursorLineNr ctermfg=16
 
 " Settings
 set number
@@ -45,10 +52,17 @@ nmap ; :
 nmap <leader>p :Files<CR>
 nmap <leader>gf :GitFiles<CR>
 nmap <leader>b :Buffers<CR>
-nmap <leader>a :Ag<CR> 
+" nmap <leader>a :Ag<CR>  " Using the_silver_searcher
+nmap <leader>a :Rg<CR> " Using ripgrep
 nmap <leader>f <Plug>(Prettier)
 
 " https://github.com/neoclide/coc.nvim
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
@@ -62,6 +76,5 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-nmap <silent> gd <Plug>(coc-definition)
-
-	" let g:fzf_layout = { "window": "silent botright 16split enew" }
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)

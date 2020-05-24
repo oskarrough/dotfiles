@@ -3,15 +3,16 @@ set -gx EDITOR nvim
 set -gx GIT_EDITOR vim
 set -gx CAR_DIR ~/.config/carp 
 
-# Set paths
-set -g fish_user_paths "/usr/local/opt/postgresql@10/bin" $fish_user_paths
-set -g fish_user_paths /usr/local/bin $PATH
-set -g fish_user_paths ~/.local/bin $PATH
-set -g fish_user_paths ~/.cargo/bin $PATH
+# Fix some Catalina bug
+set -gx LC_ALL en_GB.UTF-8 
 
-set -g fish_user_paths "/usr/local/sbin" $fish_user_paths
-# set -g fish_user_paths "/usr/local/opt/node@8/bin" $fish_user_paths
-set -g fish_user_paths "/usr/local/opt/node@10/bin" $fish_user_paths
+# Set paths
+# set -g fish_user_paths "/usr/local/opt/postgresql@10/bin" $fish_user_paths
+# set -g fish_user_paths /usr/local/bin $fish_user_paths
+# set -g fish_user_paths /usr/local/sbin $fish_user_paths
+# set -g fish_user_paths ~/.local/bin $fish_user_paths
+# set -g fish_user_paths ~/.cargo/bin $fish_user_paths
+# set -g fish_user_paths ~/Library/Python/3.7/bin $fish_user_paths
 
 # FZF
 # By default fzf uses the `find` command. Using `ag` is faster and it can ignore stuff.  Also remember: echo .git/ > ~/.agignore
@@ -30,7 +31,6 @@ set -gx FZF_ALT_C_COMMAND 	"fd --hidden --follow --exclude .git --type d"
 # Add preview with folder contents using tree to alt+c command.
 # also autoselect if 1 result, autoexit if 0.
 # set -gx FZF_ALT_C_OPTS "--select-1 --exit-0 --preview 'tree -C {} | head -200'"
-
 
 function fco -d "Fuzzy-find and checkout a branch"
   git branch --all | grep -v HEAD | string trim | fzf | read -l result; and git checkout "$result"
@@ -57,6 +57,7 @@ abbr -a gco 'git checkout'
 abbr -a zgco "git checkout (git branch | fzf | tr -d ' ')"
 abbr -a gl 'git log --oneline --decorate' # Also shows tags!
 abbr -a ns 'yarn start'
+abbr -a l 'exa'
 # abbr -a gb 'git branch'
 
 # Linux: Set paths for Linuxbrew

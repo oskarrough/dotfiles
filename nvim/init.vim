@@ -12,15 +12,14 @@ Plug 'sgur/vim-editorconfig'
 Plug 'sheerun/vim-polyglot' " syntax highlighting for everything
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive' " git stuff
-" Plug 'tpope/vim-vinegar' " nicer (netrw) file browser
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'w0rp/ale' " linter
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}} 
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'brooth/far.vim' " search/replace
 
 " Plugins for appearance
-" Plug 'nanotech/jellybeans.vim'
+Plug 'nanotech/jellybeans.vim'
 " Plug 'chriskempson/base16-vim'
 " Plug 'itchyny/lightline.vim'
 " Plug 'maximbaz/lightline-ale'
@@ -36,8 +35,9 @@ call plug#end()
 
 set termguicolors
 " colorscheme base16-default-dark
-set background=light
-colorscheme one
+" set background=light
+" colorscheme one
+colorscheme jellybeans
 set clipboard+=unnamedplus " Always copy to system clipboard
 set cursorline " Highlight the current line
 set hidden " Allow buffer switching even if unsaved
@@ -128,15 +128,6 @@ inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
 " Configure deoplete to use tab
 " inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-
 " When lightline is enabled, we can hide the default status indicator
 " set noshowmode
 let g:lightline = {
@@ -149,3 +140,16 @@ let g:lightline = {
 	\   'cocstatus': 'coc#status'
 	\ },
 	\ }
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
