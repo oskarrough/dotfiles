@@ -5,22 +5,23 @@ set -gx GIT_EDITOR vim
 # Fix some Catalina bug
 set -gx LC_ALL en_GB.UTF-8 
 
-# On Ubuntu, fd is called fdfind, so...
-if type -q "fdfind"
-	alias fd="fdfind" 
-end
-
 # Set paths
 # set -g fish_user_paths "/usr/local/opt/postgresql@10/bin" $fish_user_paths
 # set -g fish_user_paths /usr/local/bin $fish_user_paths
 # set -g fish_user_paths /usr/local/sbin $fish_user_paths
 # set -g fish_user_paths ~/.local/bin $fish_user_paths
-# set -g fish_user_paths ~/.cargo/bin $fish_user_paths
 # set -g fish_user_paths ~/Library/Python/3.7/bin $fish_user_paths
 
 # FZF
-# By default fzf uses the `find` command. Using `ag` is faster and it can ignore stuff.  Also remember: echo .git/ > ~/.agignore
-# set -gx FZF_DEFAULT_COMMAND "ag --hidden --ignore .git -g ''"
+
+# On Ubuntu, fd is called fdfind, so...
+# https://github.com/sharkdp/fd
+# https://github.com/BurntSushi/ripgrep
+if type -q "fdfind"
+	alias fd="fdfind" 
+end
+
+# Use fd (https://github.com/sharkdp/fd) instead of the default find with FZF
 set -gx FZF_DEFAULT_COMMAND "fd --hidden --follow --exclude .git --type f"
 set -gx FZF_CTRL_T_COMMAND 	"fd --hidden --follow --exclude .git --type f --type d"
 set -gx FZF_ALT_C_COMMAND 	"fd --hidden --follow --exclude .git --type d"
@@ -30,7 +31,7 @@ set -gx FZF_ALT_C_COMMAND 	"fd --hidden --follow --exclude .git --type d"
 
 # Add preview to ctrl+t command
 # also autoselect if 1 result, autoexit if 0.
-# set -gx FZF_CTRL_T_OPTS "--select-1 --exit-0 --preview 'head -100 {}'"
+set -gx FZF_CTRL_T_OPTS "--select-1 --exit-0 --preview 'head -100 {}'"
 
 # Add preview with folder contents using tree to alt+c command.
 # also autoselect if 1 result, autoexit if 0.
