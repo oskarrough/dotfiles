@@ -12,6 +12,7 @@ Plug 'junegunn/fzf.vim'
 " Plug 'andreypopp/vim-colors-plain'
 Plug 'sgur/vim-editorconfig'
 Plug 'rakr/vim-one'
+Plug 'nanotech/jellybeans.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
