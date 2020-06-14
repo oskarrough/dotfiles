@@ -54,6 +54,8 @@ abbr -a gp 'git push origin HEAD'
 abbr -a gd 'git diff'
 abbr -a gcm 'git commit'
 abbr -a gco 'git checkout'
+abbr -a switch 'git switch'
+abbr -a pull 'git pull'
 abbr -a zgco "git checkout (git branch | fzf | tr -d ' ')"
 abbr -a gl 'git log --oneline --decorate' # Also shows tags!
 abbr -a ns 'yarn start'

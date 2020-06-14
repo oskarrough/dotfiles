@@ -7,6 +7,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " Plug 'andreypopp/vim-colors-plain'
 Plug 'sgur/vim-editorconfig'
@@ -19,10 +20,10 @@ call plug#end()
 
 " Colors
 syntax enable
-set bg=light
-colorscheme one
+" set bg=light
+" colorscheme one
 " colorscheme plain
-" colorscheme jellybeans
+colorscheme jellybeans
 
 " overwrite line number color
 " highlight LineNr ctermfg=252
