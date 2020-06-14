@@ -1,10 +1,14 @@
 # Set editors
 set -gx EDITOR nvim
 set -gx GIT_EDITOR vim
-set -gx CAR_DIR ~/.config/carp 
 
 # Fix some Catalina bug
 set -gx LC_ALL en_GB.UTF-8 
+
+# On Ubuntu, fd is called fdfind, so...
+if type -q "fdfind"
+	alias fd="fdfind" 
+end
 
 # Set paths
 # set -g fish_user_paths "/usr/local/opt/postgresql@10/bin" $fish_user_paths
