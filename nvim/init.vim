@@ -23,10 +23,10 @@ Plug 'nanotech/jellybeans.vim'
 " Plug 'chriskempson/base16-vim'
 " Plug 'itchyny/lightline.vim'
 " Plug 'maximbaz/lightline-ale'
-Plug 'rakr/vim-one'
+" Plug 'rakr/vim-one'
 " Plug 'morhetz/gruvbox'
 " Plug 'w0ng/vim-hybrid'
-Plug 'vim-scripts/ScrollColors'
+" Plug 'vim-scripts/ScrollColors'
 call plug#end()
 
 " ===========================
@@ -116,11 +116,11 @@ nmap <leader>gf :GitFiles<CR>
 " imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " this is some enhanced line autocomplete
-inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
-  \ 'prefix': '^.*$',
-  \ 'source': 'rg -n ^ --color always',
-  \ 'options': '--ansi --delimiter : --nth 3..',
-  \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
+" inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
+"   \ 'prefix': '^.*$',
+"   \ 'source': 'rg -n ^ --color always',
+"   \ 'options': '--ansi --delimiter : --nth 3..',
+"   \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
 
 
 " Deoplate config.
@@ -130,16 +130,16 @@ inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
 
 " When lightline is enabled, we can hide the default status indicator
 " set noshowmode
-let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
-	\ 'active': {
-	\   'left': [ [ 'mode', 'paste' ],
-	\             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-	\ },
-	\ 'component_function': {
-	\   'cocstatus': 'coc#status'
-	\ },
-	\ }
+" let g:lightline = {
+"       \ 'colorscheme': 'jellybeans',
+" 	\ 'active': {
+" 	\   'left': [ [ 'mode', 'paste' ],
+" 	\             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+" 	\ },
+" 	\ 'component_function': {
+" 	\   'cocstatus': 'coc#status'
+" 	\ },
+" 	\ }
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.

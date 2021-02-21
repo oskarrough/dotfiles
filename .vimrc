@@ -9,22 +9,25 @@ Plug 'tpope/vim-fugitive'
 Plug 'sgur/vim-editorconfig'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 Plug 'nanotech/jellybeans.vim'
-" Plug 'andreypopp/vim-colors-plain'
-" Plug 'rakr/vim-one'
+Plug 'rakr/vim-one'
+Plug 'reedes/vim-colors-pencil'
+Plug 'andreypopp/vim-colors-plain'
+Plug 'cormacrelf/vim-colors-github'
 call plug#end()
 
 " Colors
 syntax enable
-" set bg=light
+set bg=light
 " colorscheme one
 " colorscheme plain
-colorscheme jellybeans
+colorscheme github
+" colorscheme jellybeans
 
 " Settings
 set number
@@ -46,12 +49,22 @@ nmap ; :
 " set path+=**
 " set wildmenu
 
+" Save
+inoremap <C-s>     <C-O>:update<cr>
+nnoremap <C-s>     :update<cr>
+nnoremap <leader>s :update<cr>
+nnoremap <leader>w :update<cr>
+
+" Buffers
+nnoremap ]b :bnext<cr>
+nnoremap [b :bprev<cr>
+
 " FZF commands
 nmap <leader>p :Files<CR>
 nmap <leader>gf :GitFiles<CR>
 nmap <leader>b :Buffers<CR>
-" nmap <leader>a :Ag<CR>  " Using the_silver_searcher
-nmap <leader>a :Rg<CR> " Using ripgrep
+nmap <leader>a :Ag<CR>
+" nmap <leader>a :Rg<CR>
 nmap <leader>f <Plug>(Prettier)
 
 " Settings for https://github.com/neoclide/coc.nvim
