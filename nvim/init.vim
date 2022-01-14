@@ -13,18 +13,18 @@ Plug 'sheerun/vim-polyglot' " syntax highlighting for everything
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive' " git stuff
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-Plug 'w0rp/ale' " linter
+" Plug 'w0rp/ale' " linter
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'brooth/far.vim' " search/replace
 
 " Plugins for appearance
-Plug 'nanotech/jellybeans.vim'
 " Plug 'chriskempson/base16-vim'
 " Plug 'itchyny/lightline.vim'
 " Plug 'maximbaz/lightline-ale'
 " Plug 'rakr/vim-one'
 " Plug 'morhetz/gruvbox'
+Plug 'nanotech/jellybeans.vim'
 " Plug 'w0ng/vim-hybrid'
 " Plug 'vim-scripts/ScrollColors'
 call plug#end()
@@ -33,13 +33,15 @@ call plug#end()
 " Settings
 " ===========================
 
-set termguicolors
+" set termguicolors
 " colorscheme base16-default-dark
 " set background=light
 " colorscheme one
 colorscheme jellybeans
+" colorscheme gruvbox
+
 set clipboard+=unnamedplus " Always copy to system clipboard
-set cursorline " Highlight the current line
+" set cursorline " Highlight the current line
 set hidden " Allow buffer switching even if unsaved
 set number " Show line numbers
 set noswapfile " Disable creating *.swp files
@@ -78,20 +80,20 @@ nmap <silent> <leader>es :so $MYVIMRC<CR>
 nnoremap <leader><leader> <c-^>
 
 " instead of ctrl-w then j, it’s just ctrl-j:
-noremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+" noremap <C-J> <C-W><C-J>
+" nnoremap <C-K> <C-W><C-K>
+" nnoremap <C-L> <C-W><C-L>
+" nnoremap <C-H> <C-W><C-H>
 
 " Shortcut to save (write) a file
-nmap <leader>w :w<CR>
+" nmap <leader>w :w<CR>
 
 " Shortcut to run prettier
 nmap <Leader>f <Plug>(Prettier)
 
 " Move by line
-nnoremap j gj
-nnoremap k gk
+" nnoremap j gj
+" nnoremap k gk
 
 " ===========================
 " Plugin config
@@ -105,7 +107,7 @@ elseif has('unix')
 endif
 
 " Note, the :Ag command comes from fzf.vim
-nmap <silent> <leader>p :GFiles<CR>
+" nmap <silent> <leader>p :GFiles<CR>
 nmap <leader>p :Files<CR>
 nmap <leader>b :Buffers<CR>
 " nmap <leader>b :ls<CR>
@@ -142,7 +144,8 @@ nmap <leader>gf :GitFiles<CR>
 " 	\ }
 
 " Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -153,3 +156,22 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif

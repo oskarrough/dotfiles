@@ -14,6 +14,11 @@ defaults write -g InitialKeyRepeat -int 10 # normal minimum is 15 (225 ms)
 defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
 ```
 
+## Disable mouse acceleration
+
+http://plentycom.jp/en/cursorsense/download.php
+defaults write -g com.apple.mouse.scaling -integer -1
+
 ## Installing applications with Homebrew cask
 
 Use `brew cask install` to install OS X applications.

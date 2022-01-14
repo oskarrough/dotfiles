@@ -15,6 +15,7 @@ Plug 'prettier/vim-prettier', {
   \ 'do': 'yarn install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 Plug 'nanotech/jellybeans.vim'
+Plug 'lifepillar/vim-gruvbox8'
 Plug 'rakr/vim-one'
 Plug 'reedes/vim-colors-pencil'
 Plug 'andreypopp/vim-colors-plain'
@@ -23,10 +24,10 @@ call plug#end()
 
 " Colors
 syntax enable
-set bg=light
+" set bg=light
 " colorscheme one
 " colorscheme plain
-colorscheme github
+" colorscheme github
 " colorscheme jellybeans
 
 " Settings
