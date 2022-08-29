@@ -1,5 +1,7 @@
 [user]
-	name = Oskar Rough
+	name = oskarrough
 	email = oskar@rough.dk
 [core]
 	editor = vim
+[push]
+	autoSetupRemote = true
