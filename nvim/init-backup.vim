@@ -5,7 +5,6 @@
 " ===========================
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-commentary'
-" Plug 'suy/vim-context-commentstring' " proper comments for <script> tags etc.
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'sgur/vim-editorconfig'
@@ -13,18 +12,20 @@ Plug 'sheerun/vim-polyglot' " syntax highlighting for everything
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive' " git stuff
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-" Plug 'w0rp/ale' " linter
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'w0rp/ale' " linter
+" Plug 'suy/vim-context-commentstring' " proper comments for <script> tags etc.
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'brooth/far.vim' " search/replace
 
 " Plugins for appearance
+" Plug 'morhetz/gruvbox'
+Plug 'nanotech/jellybeans.vim'
+" Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 " Plug 'chriskempson/base16-vim'
 " Plug 'itchyny/lightline.vim'
 " Plug 'maximbaz/lightline-ale'
 " Plug 'rakr/vim-one'
-" Plug 'morhetz/gruvbox'
-Plug 'nanotech/jellybeans.vim'
 " Plug 'w0ng/vim-hybrid'
 " Plug 'vim-scripts/ScrollColors'
 call plug#end()
@@ -35,10 +36,14 @@ call plug#end()
 
 " set termguicolors
 " colorscheme base16-default-dark
-" set background=light
+set background=light
 " colorscheme one
 colorscheme jellybeans
 " colorscheme gruvbox
+" let g:catppuccin_flavour = "macchiato" " latte, frappe, macchiato, mocha
+" lua << 
+" require("catppuccin").setup()
+" colorscheme catppuccin
 
 set clipboard+=unnamedplus " Always copy to system clipboard
 " set cursorline " Highlight the current line
@@ -70,7 +75,7 @@ set smartcase " but become case-sensitive if you type uppercase
 let mapleader = "\<Space>"
 
 " Use semi-colon to enter command mode because it's one less key
-nmap ; :
+" nmap ; :
 
 " Quickly edit and reload/source the config.
 nmap <silent> <leader>ev :edit $MYVIMRC<CR>
@@ -115,44 +120,28 @@ nmap <leader>b :Buffers<CR>
 nmap <leader>h :History<CR>
 nmap <leader>a :Ag<CR> 
 nmap <leader>gf :GitFiles<CR>
+nmap <leader>w :w<CR>
 " imap <c-x><c-l> <plug>(fzf-complete-line)
 
-" this is some enhanced line autocomplete
-" inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
-"   \ 'prefix': '^.*$',
-"   \ 'source': 'rg -n ^ --color always',
-"   \ 'options': '--ansi --delimiter : --nth 3..',
-"   \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
-
-
-" Deoplate config.
-" let g:deoplete#enable_at_startup = 1
-" Configure deoplete to use tab
-" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" When lightline is enabled, we can hide the default status indicator
-" set noshowmode
-" let g:lightline = {
-"       \ 'colorscheme': 'jellybeans',
-" 	\ 'active': {
-" 	\   'left': [ [ 'mode', 'paste' ],
-" 	\             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-" 	\ },
-" 	\ 'component_function': {
-" 	\   'cocstatus': 'coc#status'
-" 	\ },
-" 	\ }
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-function! s:check_back_space() abort
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
@@ -164,14 +153,12 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
