@@ -1,6 +1,6 @@
 # Windows 10 setup
 
-# Bash on Ubuntu on Windows 10
+# Bash on Ubuntu on Windows 10/11
 
 - https://msdn.microsoft.com/en-us/commandline/wsl/install_guide
 
@@ -12,6 +12,7 @@ When in Windows, you can your Ubuntu home folder at `C:\Users\Oskar\AppData\Loca
 ## Fish shell
 
 ```
+sudo apt-add-repository ppa:fish-shell/release
 sudo apt update
 sudo apt upgrade
 sudo apt install fish
@@ -28,7 +29,7 @@ chsh -s /usr/bin/fish
 Set up [Fisher](https://github.com/jorgebucaran/fisher#install) (plugins for fish)
 
 ```
-fisher add jethrokuan/z jorgebucaran/fish-nvm
+fisher install jethrokuan/z jorgebucaran/hydro
 ```
 
 ## Set up shared SSH keys with Windows 10 + Bash on Ubuntu
