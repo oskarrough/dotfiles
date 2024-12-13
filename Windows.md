@@ -12,13 +12,13 @@ When in Windows, you can your Ubuntu home folder at `C:\Users\Oskar\AppData\Loca
 ## Fish shell
 
 ```
-sudo apt-add-repository ppa:fish-shell/release
+sudo add-apt-repository ppa:fish-shell/release-3
 sudo apt update
 sudo apt upgrade
 sudo apt install fish
 ```
 
-To finish installing Fish, follow the instructions in the Terminal or run these:
+To finish installing Fish, either follow the instructions in the Terminal or run these:
 
 ```
 echo '/usr/bin/fish' | sudo tee -a /etc/shells
@@ -32,7 +32,7 @@ Set up [Fisher](https://github.com/jorgebucaran/fisher#install) (plugins for fis
 fisher install jethrokuan/z jorgebucaran/hydro
 ```
 
-## Set up shared SSH keys with Windows 10 + Bash on Ubuntu
+## Set up shared SSH keys with Windows and WSL/Ubuntu
 
 Without SSH, you'll have to enter your password every time you `git clone` something which isn't fun.
 
