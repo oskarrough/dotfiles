@@ -27,14 +27,7 @@ Use `brew cask install` to install OS X applications.
 
 ## Fish Shell
 
-` brew install fish`
-
-To finish, run this and restart your shell.
-
-```
-echo '/usr/local/bin/fish' | sudo tee -a /etc/shells
-chsh -s /usr/local/bin/fish
-```
+brew install fish
 
 ### FZF and z
 

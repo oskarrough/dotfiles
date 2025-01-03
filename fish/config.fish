@@ -1,8 +1,6 @@
 zoxide init fish | source
 
-set --universal nvm_default_version "20"
-
-# My shortcuts..
+# My shortcuts
 abbr v "nvim"
 abbr gd "git diff"
 abbr gco "git checkout"
@@ -32,17 +30,23 @@ else
   echo "fd is missing for nice fzf features"
 end
 
-# Bun
-set --export BUN_INSTALL "$HOME/.bun"
-set --export PATH $BUN_INSTALL/bin $PATH
+# set path for?
+set --export PATH ~/.local/bin $PATH
 
-# Don't think I use this??
+# linuxbrew
 # set --export PATH /home/linuxbrew/.linuxbrew/bin/brew $PATH
 # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
+
+# tmux shortcuts
 function fish_user_key_bindings
   # bind \cp 'tmux attach -t $(tmux ls | fzf --reverse | cut -d: -f1)'
   # bind -k f12 'do something'
   bind \e\[24~ 'tmux attach -t $(tmux ls | fzf --reverse | cut -d: -f1)'
 end
 
+#set --universal nvm_default_version "20"
+#source ~/.config/asdf/asdf.fish

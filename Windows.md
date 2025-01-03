@@ -9,29 +9,6 @@ Make sure to use WSL2 (and not 1) before installing Linux. See https://docs.micr
 When in Bash, you can find your Windows drives at `/mnt/c` (where `c` is your drive).  
 When in Windows, you can your Ubuntu home folder at `C:\Users\Oskar\AppData\Local\lxss\home` (where `oskar` is your Ubuntu username)
 
-## Fish shell
-
-```
-sudo add-apt-repository ppa:fish-shell/release-3
-sudo apt update
-sudo apt upgrade
-sudo apt install fish
-```
-
-To finish installing Fish, either follow the instructions in the Terminal or run these:
-
-```
-echo '/usr/bin/fish' | sudo tee -a /etc/shells
-chsh -s /usr/bin/fish
-
-```
-
-Set up [Fisher](https://github.com/jorgebucaran/fisher#install) (plugins for fish)
-
-```
-fisher install jethrokuan/z jorgebucaran/hydro
-```
-
 ## Set up shared SSH keys with Windows and WSL/Ubuntu
 
 Without SSH, you'll have to enter your password every time you `git clone` something which isn't fun.
@@ -48,3 +25,10 @@ cp -R /mnt/c/Users/Oskar/.ssh/* ~/.ssh/
 chmod 600 ~/.ssh/id_rsa
 chmod 644 ~/.ssh/id_rsa.pub
 ```
+
+## FZF and more goodies
+
+https://github.com/sharkdp/fd?tab=readme-ov-file#installation
+wget https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-x86_64-unknown-linux-gnu.tar.gz
+tar xzf ...
+mv folder/fd ~./local/bin
