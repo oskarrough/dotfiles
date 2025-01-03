@@ -1,5 +1,6 @@
--- set mapleader before lazy
+-- set mapleader before loading lazy.nvim 
 vim.g.mapleader = ' ' -- <space> as leader
+vim.g.maplocalleader = "\\"
 
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -10,8 +11,8 @@ vim.opt.cursorline = true
 vim.opt.smartindent = true
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.expandtab = true
+vim.opt.shiftwidth = 0 -- falls back to tabstop?
+-- vim.opt.expandtab = true
 
 -- Make new splits open towards right and bottom (by default it is the opposite)
 vim.opt.splitright = true
@@ -38,19 +39,17 @@ vim.opt.scrolloff = 3 -- Start scrolling X lines before top/end
 vim.opt.termguicolors = true
 
 -- Navigation
-vim.keymap.set('n', '<space>w', '<cmd>write<cr>', { desc = 'Save' })
+vim.keymap.set('n', '<space>w', '<cmd>write<cr>')
 vim.keymap.set('n', '<leader>p', '<cmd>Files<cr>') -- or GitFiles
 vim.keymap.set('n', '<leader>b', '<cmd>Buffers<cr>')
 vim.keymap.set('n', '<leader>a', '<cmd>Ag<cr>')    -- from fzf.vim
 vim.keymap.set('n', '<leader>w', '<cmd>:w<cr>')
 vim.keymap.set('i', '<c-x><c-l>', '<plug>(fzf-complete-line)')
--- nmap <leader>h :History<CR>
 
 -- LSP
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
---vim.keymap.set('n', '<leader>f', '<cmd>:Prettier<cr>')
 vim.keymap.set('n', '<leader>f', function()
   vim.lsp.buf.format()
 end)
@@ -66,17 +65,6 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set('n', '<leader>ev', '<cmd>:edit $MYVIMRC<cr>')
 
 
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-})
-
 -- Use semi-colon to enter command mode because it's one less key
 -- nmap ; :
 
@@ -87,16 +75,6 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
-
--- Move by line
--- nnoremap j gj
--- nnoremap k gk
-
--- Make sure to setup `mapleader` and `maplocalleader` before
--- loading lazy.nvim so that mappings are correct.
--- This is also a good place to setup other settings (vim.opt)
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -146,6 +124,7 @@ require("lazy").setup({
     "tpope/vim-sleuth",
     'junegunn/fzf',
     'junegunn/fzf.vim',
+    'leafOfTree/vim-svelte-plugin',
 
     -- Do we need these?
     { "folke/which-key.nvim", lazy = true },
@@ -181,7 +160,25 @@ cmp.setup({
       require('luasnip').lsp_expand(args.body)
     end,
   },
-  mapping = cmp.mapping.preset.insert({}),
+  mapping = cmp.mapping.preset.insert({
+    -- Use enter to confirm selection
+    ['<CR>'] = cmp.mapping.confirm({select = true}), -- also try false, see what you like
+    -- Simple tab complete
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      local col = vim.fn.col('.') - 1
+
+      if cmp.visible() then
+        cmp.select_next_item({behavior = 'select'})
+      elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+        fallback()
+      else
+        cmp.complete()
+      end
+    end, {'i', 's'}),
+
+    -- Go to previous item
+    ['<S-Tab>'] = cmp.mapping.select_prev_item({behavior = 'select'}),
+  }),
 })
 
 -- Configure nvim-lspconfig
@@ -196,3 +193,8 @@ lsp_zero.extend_lspconfig({
   float_border = 'rounded',
   sign_text = true,
 })
+
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
+require('lspconfig').ts_ls.setup({})
+require('lspconfig').cssls.setup({})
+require('lspconfig').svelte.setup({})
