@@ -1,3 +1,5 @@
+# eval (ssh-agent -c) && ssh-add ~/.ssh/id_ed25519
+
 zoxide init fish | source
 
 # My shortcuts
@@ -18,7 +20,7 @@ if command -v fzf > /dev/null
 end
 
 # If `fd` is installed, use it with `fzf`
-if command -v fd > /dev/null
+if command -v fdfind > /dev/null
   set -gx FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
   set -gx FZF_CTRL_T_COMMAND 'fd --type f --type d --hidden --follow --exclude .git'
   set -gx FZF_CTRL_T_OPTS "
@@ -48,5 +50,16 @@ function fish_user_key_bindings
   bind \e\[24~ 'tmux attach -t $(tmux ls | fzf --reverse | cut -d: -f1)'
 end
 
-#set --universal nvm_default_version "20"
-#source ~/.config/asdf/asdf.fish
+# ASDF configuration code
+if test -z $ASDF_DATA_DIR
+    set _asdf_shims "$HOME/.asdf/shims"
+else
+    set _asdf_shims "$ASDF_DATA_DIR/shims"
+end
+
+# Do not use fish_add_path (added in Fish 3.2) because it
+# potentially changes the order of items in PATH
+if not contains $_asdf_shims $PATH
+    set -gx --prepend PATH $_asdf_shims
+end
+set --erase _asdf_shims

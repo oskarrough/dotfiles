@@ -34,3 +34,11 @@ wget https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-x86_64-u
 tar xzf ...
 mv folder/fd ~./local/bin
 ```
+
+## Newest node
+
+```shell
+# Add the latest LTS to apt
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt install node
+```
