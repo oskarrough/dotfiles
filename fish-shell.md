@@ -38,5 +38,5 @@ chsh -s /usr/local/bin/fish
 Set up [Fisher](https://github.com/jorgebucaran/fisher#install) (plugins for fish)
 
 ```
-fisher install jethrokuan/z jorgebucaran/hydro
+fisher install jorgebucaran/hydro 
 ```
