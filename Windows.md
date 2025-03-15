@@ -28,7 +28,9 @@ chmod 644 ~/.ssh/id_rsa.pub
 
 ## FZF and more goodies
 
+```shell
 https://github.com/sharkdp/fd?tab=readme-ov-file#installation
 wget https://github.com/sharkdp/fd/releases/download/v10.2.0/fd-v10.2.0-x86_64-unknown-linux-gnu.tar.gz
 tar xzf ...
 mv folder/fd ~./local/bin
+```
