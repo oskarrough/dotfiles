@@ -1,0 +1,13 @@
+[/]
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
+www=['<Shift><Super>b']
+
+[custom-keybindings/custom0]
+binding='<Super>Return'
+command='kitty'
+name='Terminal'
+
+[custom-keybindings/custom1]
+binding='<Shift><Super>o'
+command='flatpak run md.obsidian.Obsidian'
+name='Obsidian'

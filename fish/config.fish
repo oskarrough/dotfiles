@@ -1,6 +1,6 @@
-# eval (ssh-agent -c) && ssh-add ~/.ssh/id_ed25519
-
 zoxide init fish | source
+
+set -gx EDITOR nvim
 
 # My shortcuts
 abbr v "nvim"
@@ -20,7 +20,7 @@ if command -v fzf > /dev/null
 end
 
 # If `fd` is installed, use it with `fzf`
-if command -v fdfind > /dev/null
+if command -v fdfind > /dev/null; else if command -v fd > /dev/null
   set -gx FZF_DEFAULT_COMMAND 'fd --type f --hidden --follow --exclude .git'
   set -gx FZF_CTRL_T_COMMAND 'fd --type f --type d --hidden --follow --exclude .git'
   set -gx FZF_CTRL_T_OPTS "
@@ -35,9 +35,10 @@ end
 # set path for?
 set --export PATH ~/.local/bin $PATH
 
-# linuxbrew
-# set --export PATH /home/linuxbrew/.linuxbrew/bin/brew $PATH
-# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# linuxbrew (only on Linux)
+if test (uname) = "Linux"
+    eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+end
 
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
