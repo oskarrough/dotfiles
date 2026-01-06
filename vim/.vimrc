@@ -1,11 +1,11 @@
-" Oskars vim config
+" Oskars vim config. Only used when neovim isn't available.
 set noswapfile
 
 " Plugins
 call plug#begin('~/.vim/plugged')
-Plug 'sheerun/vim-polyglot' 
+Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
+# Plug 'tpope/vim-fugitive'
 Plug 'sgur/vim-editorconfig'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug '/usr/local/opt/fzf'
@@ -32,7 +32,7 @@ syntax enable
 
 " Settings
 set number
-set relativenumber 
+set relativenumber
 set incsearch " highlight search results
 set hidden " allow switching from unsaved files
 set shiftwidth=2 " tabs with a width of 2
