@@ -1,5 +1,10 @@
 zoxide init fish | source
 
+# SSH key agent
+if type -q keychain
+    keychain --eval --quiet id_ed25519 | source
+end
+
 set -gx EDITOR nvim
 
 # My shortcuts
@@ -36,7 +41,7 @@ end
 set --export PATH ~/.local/bin $PATH
 
 # linuxbrew (only on Linux)
-if test (uname) = "Linux"
+if test (uname) = "Linux"; and test -x /home/linuxbrew/.linuxbrew/bin/brew
     eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 end
 
@@ -50,6 +55,9 @@ function fish_user_key_bindings
   # bind -k f12 'do something'
   bind \e\[24~ 'tmux attach -t $(tmux ls | fzf --reverse | cut -d: -f1)'
 end
+
+# Use vim keybindings in the shell
+set --global fish_key_bindings fish_vi_key_bindings
 
 # ASDF configuration code
 if test -z $ASDF_DATA_DIR
@@ -65,3 +73,6 @@ if not contains $_asdf_shims $PATH
 end
 set --erase _asdf_shims
 
+
+# Amp CLI
+export PATH="/Users/oskar/.amp/bin:$PATH"
