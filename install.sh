@@ -8,6 +8,7 @@ DOTFILES="$(cd "$(dirname "$0")" && pwd)"
 
 # Define symlinks: "source:target" pairs. Source is relative to $DOTFILES, target is absolute
 LINKS=(
+    "aerospace/aerospace.toml:$HOME/.config/aerospace/aerospace.toml"
     "fish/config.fish:$HOME/.config/fish/config.fish"
     "git/.gitconfig:$HOME/.gitconfig"
     "git/.gitignore:$HOME/.gitignore"
