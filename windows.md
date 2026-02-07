@@ -1,5 +1,18 @@
 # Windows 10 setup
 
+Raycast is an easy way to set up shortcuts like alt+shift+b for browser.
+
+## Tiling
+
+Config is in /mnt/c/Users/oskar/.config
+
+```
+winget install LGUG2Z.komorebi
+winget install LGUG2Z.whkd
+komorebi stop --wkhd --bar
+winget upgrade LGUG2Z.komorebi
+````
+
 # Bash on Ubuntu on Windows 10/11
 
 - https://msdn.microsoft.com/en-us/commandline/wsl/install_guide

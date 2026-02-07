@@ -20,6 +20,8 @@ LINKS=(
     "vim/.vimrc:$HOME/.vimrc"
     "emacs/init.el:$HOME/.config/emacs/init.el"
     "waybar/config.jsonc:$HOME/.config/waybar/config.jsonc"
+    "waybar/style.css:$HOME/.config/waybar/style.css"
+    "jj/config.toml:$HOME/.config/jj/config.toml"
 )
 
 # Create symlinks
@@ -33,8 +35,13 @@ for link in "${LINKS[@]}"; do
     # Create parent directory if needed
     mkdir -p "$(dirname "$dst")"
 
-    # Remove existing file/symlink
-    rm -f "$dst"
+    # Back up existing real files (skip if already a symlink)
+    if [[ -e "$dst" && ! -L "$dst" ]]; then
+        mv "$dst" "$dst.bak"
+        echo "backup: $dst -> $dst.bak"
+    else
+        rm -f "$dst"
+    fi
 
     # Create symlink
     ln -s "$DOTFILES/$src" "$dst"

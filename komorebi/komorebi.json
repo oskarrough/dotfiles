@@ -25,27 +25,27 @@
         },
         {
           "name": "2",
-          "layout": "VerticalStack"
+          "layout": "BSP"
         },
         {
           "name": "3",
-          "layout": "HorizontalStack"
+          "layout": "BSP"
         },
         {
           "name": "4",
-          "layout": "UltrawideVerticalStack"
+          "layout": "BSP"
         },
         {
           "name": "5",
-          "layout": "Rows"
+          "layout": "BSP"
         },
         {
           "name": "6",
-          "layout": "Grid"
+          "layout": "BSP"
         },
         {
           "name": "7",
-          "layout": "RightMainVerticalStack"
+          "layout": "BSP"
         }
       ]
     }
