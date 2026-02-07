@@ -11,6 +11,14 @@ vim.schedule(function()
 	vim.o.clipboard = 'unnamedplus'
 end)
 
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "svelte",
+	callback = function()
+		vim.bo.commentstring = "<!-- %s -->"
+	end,
+})
+
 vim.o.swapfile = false
 vim.o.cursorline = true
 vim.o.signcolumn = 'yes'
@@ -134,6 +142,7 @@ require("lazy").setup({
 		{
 			'nvim-treesitter/nvim-treesitter',
 			build = ':TSUpdate',
+			opts = {},
 		},
 
 		{
@@ -239,7 +248,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 		-- Helpful ones
 		"tpope/vim-surround",
-		"tpope/vim-commentary",
+		-- "tpope/vim-commentary",
 		"tpope/vim-sleuth",
 		"tpope/vim-fugitive",
 
@@ -255,6 +264,21 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		},
 
 		'leafOfTree/vim-svelte-plugin',
+
+		{
+			'JoosepAlviste/nvim-ts-context-commentstring',
+			config = function()
+				require('ts_context_commentstring').setup {
+					enable_autocmd = false,
+				}
+				local get_option = vim.filetype.get_option
+				vim.filetype.get_option = function(filetype, option)
+					return option == "commentstring"
+						and require("ts_context_commentstring.internal").calculate_commentstring()
+						or get_option(filetype, option)
+				end
+			end,
+		},
 
 		{
 			"folke/which-key.nvim",

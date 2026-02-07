@@ -18,6 +18,9 @@ abbr -a -g pull "git pull --rebase"
 abbr -a -g push "git push"
 # abbr t 'tmux attach -t $(tmux ls | fzf --reverse | cut -d: -f1)'
 
+# Use vim keybindings in the shell
+set --global fish_key_bindings fish_vi_key_bindings
+
 if command -v fzf > /dev/null
   # set -gx FZF_DETAULT_OPTS '--tmux center,60%'
   # set -gx FZF_DEFAULT_OPTS '--height 40% --tmux bottom,40% --layout reverse --border top'
@@ -43,11 +46,17 @@ set --export PATH ~/.local/bin $PATH
 # linuxbrew (only on Linux)
 if test (uname) = "Linux"; and test -x /home/linuxbrew/.linuxbrew/bin/brew
     eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+    # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv fish)"
 end
 
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH
+
+# Playwright - use system chromium if available
+if command -q chromium-browser
+    set -gx PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH /usr/bin/chromium-browser
+end
 
 # tmux shortcuts
 function fish_user_key_bindings
@@ -55,9 +64,6 @@ function fish_user_key_bindings
   # bind -k f12 'do something'
   bind \e\[24~ 'tmux attach -t $(tmux ls | fzf --reverse | cut -d: -f1)'
 end
-
-# Use vim keybindings in the shell
-set --global fish_key_bindings fish_vi_key_bindings
 
 # ASDF configuration code
 if test -z $ASDF_DATA_DIR
@@ -73,6 +79,3 @@ if not contains $_asdf_shims $PATH
 end
 set --erase _asdf_shims
 
-
-# Amp CLI
-export PATH="/Users/oskar/.amp/bin:$PATH"

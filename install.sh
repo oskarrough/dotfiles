@@ -18,6 +18,8 @@ LINKS=(
     "nvim/init.lua:$HOME/.config/nvim/init.lua"
     "tmux/tmux.conf:$HOME/.tmux.conf"
     "vim/.vimrc:$HOME/.vimrc"
+    "emacs/init.el:$HOME/.config/emacs/init.el"
+    "waybar/config.jsonc:$HOME/.config/waybar/config.jsonc"
 )
 
 # Create symlinks
