@@ -1,11 +1,11 @@
 * {
-    font-family: "JetBrains Mono", "Symbols Nerd Font", monospace;
-    font-size: 13px;
+    font-family: iosevka term, "JetBrains Mono", "Symbols Nerd Font", monospace;
+    font-size: 15px;
 }
 
 window#waybar {
     background-color: rgba(43, 48, 59, 0.5);
-    border-bottom: 3px solid rgba(100, 114, 125, 0.5);
+    border-bottom: 2px solid rgba(100, 114, 125, 0.5);
     color: #ffffff;
     transition-property: background-color;
     transition-duration: .5s;
@@ -42,6 +42,13 @@ button:hover {
     box-shadow: inset 0 -3px #ffffff;
 }
 
+#workspaces button.special {
+    background-color: #f1c40f;
+    color: #000000;
+    box-shadow: inset 0 -3px #000000;
+    font-weight: bold;
+}
+
 #workspaces button.urgent {
     background-color: #eb4d4b;
 }
@@ -50,6 +57,7 @@ button:hover {
 #battery,
 #network,
 #bluetooth,
+#custom-dropbox,
 #wireplumber {
     padding: 0 10px;
     color: #ffffff;
@@ -99,24 +107,3 @@ button:hover {
     animation-direction: alternate;
 }
 
-#network {
-    background-color: #2980b9;
-}
-
-#network.disconnected {
-    background-color: #f53c3c;
-}
-
-#bluetooth {
-    background-color: #2980b9;
-}
-
-#wireplumber {
-    background-color: #f1c40f;
-    color: #000000;
-}
-
-#wireplumber.muted {
-    background-color: #90b1b1;
-    color: #2a5c45;
-}

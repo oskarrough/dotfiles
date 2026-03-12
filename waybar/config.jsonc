@@ -2,29 +2,50 @@
     "layer": "top",
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["hyprland/window"],
-    "modules-right": ["network", "bluetooth", "wireplumber", "battery", "clock"],
+    "modules-right": ["tray", "custom/dropbox", "network", "bluetooth", "wireplumber", "battery", "clock"],
+    "hyprland/workspaces": {
+        "format": "{name}",
+        "show-special": true,
+        "special-visible-only": true,
+        "on-click": "activate"
+    },
     "hyprland/window": {
         "max-length": 50
+    },
+    "tray": {
+        "icon-size": 18,
+        "spacing": 10
+    },
+    "custom/dropbox": {
+        "exec": "status=$(dropbox status 2>/dev/null); printf '{\"text\":\"󰇣\",\"tooltip\":\"Dropbox: %s\"}\\n' \"${status:-not running}\"",
+        "return-type": "json",
+        "interval": 30,
+        "format": "{}",
+        "on-click": "xdg-open ~/Dropbox",
+        "on-click-right": "dropbox status"
     },
     "network": {
         "format-wifi": "{icon}",
         "format-ethernet": "󰀂",
         "format-disconnected": "󰤮",
         "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
-        "tooltip-format-wifi": "{essid} {signalStrength}%"
+        "tooltip-format-wifi": "{essid} {signalStrength}%",
+        "on-click": "nm-connection-editor"
     },
     "bluetooth": {
         "format": "󰂯",
         "format-off": "󰂲",
         "format-connected": "󰂱",
-        "tooltip-format-connected": "{device_alias}"
+        "tooltip-format-connected": "{device_alias}",
+        "on-click": "kitty -e bluetoothctl"
     },
     "wireplumber": {
         "format": "{icon} {volume}%",
         "format-muted": "󰖁 muted",
         "format-icons": ["󰕿", "󰖀", "󰕾"],
         "scroll-step": 5,
-        "tooltip-format": "{node_name} {volume}%"
+        "tooltip-format": "{node_name} {volume}%",
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
     },
     "battery": {
         "format": "{capacity}% {icon}",

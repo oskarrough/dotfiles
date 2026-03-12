@@ -11,13 +11,11 @@ winget install LGUG2Z.komorebi
 winget install LGUG2Z.whkd
 komorebi stop --wkhd --bar
 winget upgrade LGUG2Z.komorebi
-````
+```
 
-# Bash on Ubuntu on Windows 10/11
+## WSL 
 
 - https://msdn.microsoft.com/en-us/commandline/wsl/install_guide
-
-Make sure to use WSL2 (and not 1) before installing Linux. See https://docs.microsoft.com/en-us/windows/wsl/install-win10#update-to-wsl-2
 
 When in Bash, you can find your Windows drives at `/mnt/c` (where `c` is your drive).  
 When in Windows, you can your Ubuntu home folder at `C:\Users\Oskar\AppData\Local\lxss\home` (where `oskar` is your Ubuntu username)

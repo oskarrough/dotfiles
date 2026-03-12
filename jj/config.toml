@@ -5,4 +5,19 @@ name = "oskarrough"
 email = "oskar@rough.dk"
 
 [revsets]
-log = "present(@) | ancestors(immutable_heads().., 2) | ancestors(heads(remote_bookmarks()), 2) | trunk()"
+# A bit more verbose compared to default log, to see whats up
+log = "present(@) | ancestors(immutable_heads().., 6) | ancestors(heads(tracked_remote_bookmarks()), 6) | trunk()"
+
+[aliases]
+tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
+
+[ui]
+default-command = "log" # This way `jj` logs for you, handy
+diff-formatter = ":git"
+
+[remotes.origin]
+auto-track-bookmarks = "*"
+# auto-track-created-bookmarks = "*"
+
+# [remotes.upstream]
+# auto-track-bookmarks = "*"

@@ -3,6 +3,7 @@
 	email = oskar@rough.dk
 [core]
 	editor = nvim
+	pager = delta
 [init]
 	defaultBranch = main
 [push]
