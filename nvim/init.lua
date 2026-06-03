@@ -67,9 +67,7 @@ end)
 -- Navigation with fzf
 vim.api.nvim_set_keymap("n", "<C-\\>", [[<Cmd>lua require"fzf-lua".buffers()<CR>]], {})
 vim.api.nvim_set_keymap("n", "<leader>b", [[<Cmd>lua require"fzf-lua".buffers()<CR>]], {})
-vim.api.nvim_set_keymap("n", "<C-k>", [[<Cmd>lua require"fzf-lua".builtin()<CR>]], {})
 vim.api.nvim_set_keymap("n", "<C-p>", [[<Cmd>lua require"fzf-lua".files()<CR>]], {})
-vim.api.nvim_set_keymap("n", "<C-l>", [[<Cmd>lua require"fzf-lua".live_grep()<CR>]], {})
 vim.api.nvim_set_keymap("n", "<C-g>", [[<Cmd>lua require"fzf-lua".grep_project()<CR>]], {})
 vim.api.nvim_set_keymap("n", "<F1>", [[<Cmd>lua require"fzf-lua".help_tags()<CR>]], {})
 -- vim.keymap.set('n', '<leader>p', '<cmd>Files<cr>') -- or GitFiles
@@ -141,6 +139,7 @@ require("lazy").setup({
 		-- LSP Support
 		{
 			'nvim-treesitter/nvim-treesitter',
+			branch = 'main',
 			build = ':TSUpdate',
 			opts = {},
 		},
@@ -386,8 +385,8 @@ vim.lsp.config('lua_ls', {
 
 -- configs are from nvim-lspconfig
 vim.lsp.enable('lua_ls')
-vim.lsp.enable('html_lsp')
-vim.lsp.enable('css_lsp')
+vim.lsp.enable('html')
+vim.lsp.enable('cssls')
 vim.lsp.enable('ts_ls')
 vim.lsp.enable('svelte')
 vim.lsp.enable('biome')

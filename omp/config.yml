@@ -1,0 +1,49 @@
+providers:
+  webSearchOrder:
+    - firecrawl
+    - perplexity
+    - gemini
+    - anthropic
+    - codex
+    - xai
+    - zai
+    - exa
+    - tinyfish
+    - jina
+    - kagi
+    - tavily
+    - brave
+    - kimi
+    - parallel
+    - synthetic
+    - searxng
+    - startpage
+    - duckduckgo
+    - ecosia
+    - google
+    - mojeek
+    - public
+  openai-codex:
+    codeMode: "on"
+modelRoles:
+  default: anthropic/claude-opus-5:medium
+  designer: anthropic/claude-opus-5:high
+  smol: openai/gpt-5.6-luna:high
+  slow: openai/gpt-5.6-luna-pro:xhigh
+symbolPreset: nerd
+composer:
+  shape: borderless
+theme:
+  dark: dark-gruvbox
+  light: light
+setupVersion: 2
+github:
+  enabled: true
+vault:
+  enabled: false
+astGrep:
+  enabled: true
+plan:
+  enabled: false
+dev:
+  autoqaConsent: denied

@@ -9,4 +9,4 @@ run the `install.sh` script to symlink.
 
 I develop primarily on OSX, Fedora and Windows + WSL. I use the fish shell, neovim and homebrew.
 
-See docs.md, osx.md and windows.md.
+See [Fedora](fedora.md), [macOS](osx.md), and [Windows](windows.md) setup notes.

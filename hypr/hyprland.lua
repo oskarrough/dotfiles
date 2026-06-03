@@ -155,8 +155,10 @@ bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd(fileManager), "Launch file manag
 bind(mainMod .. " + SHIFT + O", hl.dsp.exec_cmd('command -v obsidian >/dev/null 2>&1 && obsidian vault="Notes" || xdg-open "obsidian://open?vault=Notes"'), "Launch Obsidian")
 bind(mainMod .. " + SHIFT + SLASH", hl.dsp.exec_cmd("uwsm-app -- keepassxc"), "Launch password")
 
-bind(mainMod .. " + Q", hl.dsp.window.close(), "Close window")
+bind(mainMod .. " + W", hl.dsp.window.close(), "Close window")
+bind(mainMod .. " + SHIFT + M", hl.dsp.exit(), "Exit Hyprland")
 bind(mainMod .. " + P", hl.dsp.window.pseudo())
+bind(mainMod .. " + R", hl.dsp.layout("togglesplit"), "Rotate split (dwindle)")
 
 for key, dir in pairs({ left = "left", right = "right", up = "up", down = "down", h = "left", j = "down", k = "up", l = "right" }) do
     bind(mainMod .. " + " .. key, hl.dsp.focus({ direction = dir }))

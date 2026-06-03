@@ -9,33 +9,27 @@ Config is in /mnt/c/Users/oskar/.config
 ```
 winget install LGUG2Z.komorebi
 winget install LGUG2Z.whkd
-komorebi stop --wkhd --bar
+komorebi stop --whkd --bar
 winget upgrade LGUG2Z.komorebi
 ```
 
 ## WSL 
 
-- https://msdn.microsoft.com/en-us/commandline/wsl/install_guide
+- https://learn.microsoft.com/windows/wsl/install
 
 When in Bash, you can find your Windows drives at `/mnt/c` (where `c` is your drive).  
-When in Windows, you can your Ubuntu home folder at `C:\Users\Oskar\AppData\Local\lxss\home` (where `oskar` is your Ubuntu username)
+From Windows, open a distribution's home directory at `\\wsl$\Distro\home\username`.
 
-## Set up shared SSH keys with Windows and WSL/Ubuntu
+## Set up SSH in WSL
 
-Without SSH, you'll have to enter your password every time you `git clone` something which isn't fun.
-
-Run `ssh-keygen` and follow the steps - choose the default filename and give it a passphrase. Next use `cat ~/.ssh/id_rsa.pub | pbcopy` to copy the key and paste it into your accounts on [GitHub](https://github.com/settings/ssh) 
-
-https://daverupert.com/2018/04/developing-on-windows-with-wsl-and-visual-studio-code/
-
-Follow the [GitHub SSH guide](https://github.com/settings/ssh) to generate and add a key from Windows 10 using Git Bash. Afterwards, you'll want the same keys available inside WSL/Bash for Ubuntu on Windows 10. To do this, copy the keys in and fix permissions.
+Generate a separate key inside WSL rather than copying a private key from Windows:
 
 ```shell
-# Open bash for ubuntu
-cp -R /mnt/c/Users/Oskar/.ssh/* ~/.ssh/
-chmod 600 ~/.ssh/id_rsa
-chmod 644 ~/.ssh/id_rsa.pub
+ssh-keygen -t ed25519
+cat ~/.ssh/id_ed25519.pub
 ```
+
+Add the public key to [GitHub](https://github.com/settings/ssh).
 
 ## FZF and more goodies
 

@@ -4,7 +4,7 @@ Hey! These are my notes for steps I usually take with a fresh (Fedora) linux ins
 INSTALL THESE
   sudo dnf copr enable solopasha/hyprland
   sudo dnf install hyprland fish neovim zoxide git fd-find keepassxc dropbox bat delta-cli
-  sudo dnf install https://www.dropbox.com/download?dl=packages/fedora/nautilus-dropbox-2025.05.20-1.fc42.x86_64.rpm
+  https://www.dropbox.com/install-linux
 
   curl https://mise.run/fish | sh
 
