@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>oskar palette playground</title>
+<style>
+@font-face { font-family: "iA Writer Quattro S"; font-weight: 400; font-style: normal; font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/iaolo/iA-Fonts@master/iA%20Writer%20Quattro/Webfonts/iAWriterQuattroS-Regular.woff2") format("woff2"); }
+@font-face { font-family: "iA Writer Quattro S"; font-weight: 400; font-style: italic; font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/iaolo/iA-Fonts@master/iA%20Writer%20Quattro/Webfonts/iAWriterQuattroS-Italic.woff2") format("woff2"); }
+@font-face { font-family: "iA Writer Quattro S"; font-weight: 700; font-style: normal; font-display: swap;
+  src: url("https://cdn.jsdelivr.net/gh/iaolo/iA-Fonts@master/iA%20Writer%20Quattro/Webfonts/iAWriterQuattroS-Bold.woff2") format("woff2"); }
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 24px;
+  font: 14px/1.5 "iA Writer Quattro S", Inter, system-ui, sans-serif;
+  background: #fafafa; color: #1a1a1a;
+}
+h1 { font-size: 20px; margin: 0 0 4px; }
+h2 { font-size: 15px; margin: 32px 0 10px; }
+h3 { font-size: 12px; margin: 16px 0 6px; font-weight: 400; color: #777; text-transform: uppercase; letter-spacing: .06em; }
+.lede { color: #666; margin: 0 0 8px; }
+code, pre, select, textarea { font-family: ui-monospace, "JetBrains Mono", Menlo, monospace; font-size: 12px; }
+
+/* ---------- swatches ---------- */
+.swatches { display: flex; flex-wrap: wrap; gap: 6px; }
+.sw { width: 104px; border: 1px solid #0001; border-radius: 6px; overflow: hidden; cursor: pointer; background: #fff; }
+.sw .chip { height: 40px; }
+.sw .lbl { padding: 4px 6px; font-size: 11px; line-height: 1.3; }
+.sw .lbl code { font-size: 10px; color: #666; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sw:hover { outline: 2px solid #0003; }
+.ramp { display: flex; gap: 0; margin-bottom: 4px; }
+.ramp .sw { width: 76px; border-radius: 0; border-right: none; }
+.ramp .sw:first-child { border-radius: 6px 0 0 6px; }
+.ramp .sw:last-child { border-radius: 0 6px 6px 0; border-right: 1px solid #0001; }
+
+/* ---------- mapping table ---------- */
+.presets { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.presets button, .tools button {
+  font: inherit; font-size: 13px; padding: 4px 10px; border-radius: 6px;
+  border: 1px solid #0002; background: #fff; cursor: pointer;
+}
+.presets button:hover, .tools button:hover { background: #f0f0f0; }
+table.map { border-collapse: collapse; width: 100%; max-width: 1100px; }
+table.map th { text-align: left; font-weight: 400; color: #777; font-size: 12px; padding: 4px 8px; }
+table.map td { padding: 3px 8px; border-top: 1px solid #0000000d; vertical-align: middle; }
+table.map td.tok code { font-size: 12px; }
+table.map td.desc { color: #777; font-size: 12px; }
+.pick { display: flex; align-items: center; gap: 6px; }
+.pick .dot { width: 18px; height: 18px; border-radius: 4px; border: 1px solid #0002; flex: none; }
+.pick select { max-width: 190px; }
+.cr { font-size: 11px; padding: 1px 5px; border-radius: 4px; white-space: nowrap; }
+.cr.ok { background: #e3f3e3; color: #245c24; }
+.cr.meh { background: #fbf0d6; color: #7a5600; }
+.cr.bad { background: #fbe1df; color: #8f231b; }
+
+/* ---------- mock bb panes ---------- */
+.panes { display: flex; flex-wrap: wrap; gap: 16px; }
+.pane {
+  /* derived like bb derives them */
+  --background: var(--canvas);
+  --foreground: var(--ink);
+  --secondary: color-mix(in oklch, var(--ink) 8%, var(--canvas));
+  --muted: color-mix(in oklch, var(--ink) 11%, var(--canvas));
+  --border: color-mix(in oklch, var(--ink) 14%, var(--canvas));
+  --border-seam: color-mix(in oklch, var(--ink) 10%, var(--canvas));
+  --input: color-mix(in oklch, var(--ink) 30%, var(--canvas));
+  --sidebar: color-mix(in oklch, var(--ink) 3%, var(--canvas));
+  --surface-recessed: color-mix(in oklch, var(--ink) 5%, var(--canvas));
+  --surface-selected: color-mix(in oklch, var(--primary) 16%, var(--canvas));
+  --surface-selected-border: color-mix(in oklch, var(--primary) 35%, var(--canvas));
+  --state-hover: color-mix(in oklch, var(--ink) 6%, var(--canvas));
+  --muted-foreground: color-mix(in oklch, var(--ink) 70%, var(--canvas));
+  --subtle-foreground: color-mix(in oklch, var(--ink) 58%, var(--canvas));
+  --readback-foreground: color-mix(in oklch, var(--ink) 64%, var(--canvas));
+
+  flex: 1 1 520px; min-width: 480px;
+  border-radius: 10px; overflow: hidden; border: 1px solid #0002;
+  background: var(--background); color: var(--foreground);
+}
+.pane .app { display: flex; min-height: 440px; }
+.pane aside {
+  width: 170px; flex: none; background: var(--sidebar);
+  border-right: 1px solid var(--border-seam); padding: 10px 6px; font-size: 13px;
+}
+.pane .side-h { color: var(--subtle-foreground); font-size: 11px; padding: 6px 8px 4px; }
+.pane .row { padding: 5px 8px; border-radius: 6px; display: flex; align-items: center; gap: 6px; border: 1px solid transparent; }
+.pane .row.hover { background: var(--state-hover); }
+.pane .row.selected { background: var(--surface-selected); border-color: var(--surface-selected-border); }
+.pane .row.dim { color: var(--subtle-foreground); }
+.pane .adot { width: 7px; height: 7px; border-radius: 50%; background: var(--attention); margin-left: auto; }
+.pane main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.pane header {
+  padding: 10px 16px; border-bottom: 1px solid var(--border);
+  background: color-mix(in oklch, var(--canvas) 92%, transparent); font-weight: 700;
+}
+.pane header .meta { font-weight: 400; color: var(--muted-foreground); font-size: 12px; }
+.pane .thread { padding: 14px 16px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.pane .user {
+  align-self: flex-end; max-width: 80%; background: var(--secondary);
+  padding: 8px 12px; border-radius: 12px;
+}
+.pane .asst p { margin: 0 0 6px; }
+.pane .file { color: var(--file-accent); font-family: ui-monospace, Menlo, monospace; font-size: 12.5px; }
+.pane a { color: var(--primary); text-decoration: underline; text-underline-offset: 2px; }
+.pane .readback { color: var(--readback-foreground); font-size: 12.5px; }
+.pane .ts { color: var(--muted-foreground); font-size: 12px; }
+.pane pre {
+  margin: 0; padding: 10px 12px; border-radius: 8px; overflow: auto;
+  background: var(--surface-recessed); border: 1px solid var(--border);
+}
+.pane .diff { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; font-family: ui-monospace, Menlo, monospace; font-size: 12px; }
+.pane .diff .fh { padding: 5px 10px; background: var(--muted); color: var(--file-accent); }
+.pane .diff div.l { padding: 1px 10px; white-space: pre; }
+.pane .diff .add { background: color-mix(in oklch, var(--diff-added) 16%, var(--canvas)); color: color-mix(in oklch, var(--diff-added) 60%, var(--ink)); }
+.pane .diff .rem { background: color-mix(in oklch, var(--diff-removed) 16%, var(--canvas)); color: color-mix(in oklch, var(--diff-removed) 60%, var(--ink)); }
+.pane .badges, .pane .buttons { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.pane .b { font-size: 12px; padding: 1px 8px; border-radius: 999px; border: 1px solid; }
+.pane .b.success { color: var(--success); border-color: color-mix(in oklch, var(--success) 40%, var(--canvas)); }
+.pane .b.merged { color: var(--pr-merged); border-color: color-mix(in oklch, var(--pr-merged) 40%, var(--canvas)); }
+.pane .b.warn { color: var(--warning-text); background: color-mix(in oklch, var(--warning) 16%, var(--canvas)); border-color: transparent; }
+.pane .b.destr { color: var(--destructive-text); background: color-mix(in oklch, var(--destructive) 12%, var(--canvas)); border-color: color-mix(in oklch, var(--destructive) 30%, var(--canvas)); }
+.pane .b.chip { color: var(--muted-foreground); background: var(--muted); border-color: transparent; }
+.pane button {
+  font: inherit; font-size: 13px; padding: 5px 12px; border-radius: 7px; cursor: pointer; border: 1px solid transparent;
+}
+.pane .btn-primary { background: var(--primary); color: var(--primary-foreground); }
+.pane .btn-secondary { background: var(--secondary); color: var(--foreground); border-color: var(--border); }
+.pane .btn-destructive { background: var(--destructive); color: var(--destructive-foreground); }
+.pane .btn-focus { background: transparent; color: var(--foreground); outline: 2px solid var(--primary); outline-offset: 1px; }
+.pane .composer {
+  margin: 0 16px 14px; border: 1px solid var(--input); border-radius: 10px;
+  padding: 10px 12px; display: flex; justify-content: space-between; color: var(--subtle-foreground);
+}
+.pane .composer kbd { font: inherit; font-size: 11px; background: var(--muted); color: var(--muted-foreground); padding: 0 5px; border-radius: 4px; }
+.pane ::selection { background: color-mix(in oklch, var(--primary) 30%, var(--canvas)); }
+.mode-tag { font-size: 11px; color: var(--subtle-foreground); font-weight: 400; margin-left: 6px; }
+
+.tools { display: flex; gap: 6px; margin: 8px 0; }
+textarea { width: 100%; max-width: 1100px; height: 260px; padding: 10px; border-radius: 8px; border: 1px solid #0002; background: #fff; }
+.toast { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); background: #1a1a1a; color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 13px; opacity: 0; transition: opacity .2s; pointer-events: none; }
+.toast.on { opacity: 1; }
+</style>
+</head>
+<body>
+
+<h1>oskar palette playground</h1>
+<p class="lede">Your colors as variables. Map them onto bb's tokens below and watch the two mock bb windows update. Nothing here touches the real bb theme.</p>
+
+<h2>Preview</h2>
+<div class="panes" id="panes"></div>
+
+<h2>Map palette → bb tokens</h2>
+<div class="presets" id="presets"></div>
+<table class="map">
+  <thead><tr><th>bb token</th><th>light</th><th>dark</th><th>what it drives</th></tr></thead>
+  <tbody id="map"></tbody>
+</table>
+
+<h2>Palette</h2>
+<p class="lede">Click a swatch to copy its variable name.</p>
+<div id="palette"></div>
+
+<h2>Export</h2>
+<div class="tools">
+  <button id="copy-theme">Copy theme color blocks</button>
+  <button id="copy-palette">Copy palette variables</button>
+</div>
+<textarea id="out" readonly></textarea>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ---------- the palette: single source of truth ----------
+const PALETTE = [
+  { group: "Pastels (A–O)", vars: [
+    ["pastel-clay",   "#ECD1C9", "A clay"],
+    ["pastel-salmon", "#FBB5AE", "B salmon"],
+    ["pastel-butter", "#FFEFBC", "C butter"],
+    ["pastel-sky",    "#B7D1DF", "D sky"],
+    ["pastel-sage",   "#D1E2CE", "E sage"],
+    ["pastel-blush",  "#FADAE5", "F blush"],
+    ["pastel-sand",   "#ECE3D5", "G sand"],
+    ["pastel-mist",   "#F2F2F2", "H mist"],
+    ["pastel-straw",  "#ECE3C1", "I straw"],
+    ["pastel-mint",   "#BEDFC8", "J mint"],
+    ["pastel-lemon",  "#F9F2B6", "K lemon"],
+    ["pastel-peach",  "#EFD0BD", "L peach"],
+    ["pastel-lilac",  "#DDD0E5", "M lilac"],
+    ["pastel-wheat",  "#F2E4C8", "N wheat"],
+    ["pastel-gray",   "#CBCBCB", "O gray"],
+  ]},
+  { group: "Set 1", vars: [
+    ["s1-mustard",    "rgb(235 188 88)", "mustard"],
+    ["s1-terracotta", "rgb(209 120 94)", "terracotta"],
+    ["s1-forest",     "rgb(41 70 47)",   "forest"],
+    ["s1-pine",       "rgb(47 101 83)",  "pine"],
+    ["s1-ink",        "rgb(26 26 26)",   "ink"],
+  ]},
+  { group: "Set 2", vars: [
+    ["s2-brick",  "#c04340", "brick"],
+    ["s2-copper", "#ca7d45", "copper"],
+    ["s2-ochre",  "#d3c346", "ochre"],
+    ["s2-night",  "#19191b", "night"],
+  ]},
+  { group: "Set 3", vars: [
+    ["s3-parchment",   "#ecdbc1", "parchment"],
+    ["s3-signal",      "#cc2328", "signal red"],
+    ["s3-cyan",        "#08acf3", "cyan"],
+    ["s3-taupe",       "#857679", "taupe"],
+    ["s3-ultramarine", "#263a90", "ultramarine"],
+  ]},
+  { group: "PO", vars: [
+    ["po-green",      "hsl(150 30% 40%)", "PO-12 green"],
+    ["po-teal",       "hsl(185 35% 45%)", "PO-14 teal"],
+    ["po-red-orange", "hsl(15 80% 50%)",  "PO-16 red-orange"],
+    ["po-purple",     "hsl(320 25% 40%)", "PO-20 purple"],
+    ["po-orange",     "hsl(30 85% 55%)",  "PO-24 orange"],
+  ]},
+  { group: "Gray ramp", ramp: true, vars: [
+    ["c-gray1", "hsl(50 14% 96%)"], ["c-gray2", "hsl(50 14% 91%)"], ["c-gray3", "hsl(50 10% 76%)"],
+    ["c-gray4", "hsl(50 10% 56%)"], ["c-gray5", "hsl(30 10% 36%)"], ["c-gray6", "hsl(30 10% 26%)"],
+    ["c-gray7", "hsl(30 8% 16%)"],  ["c-gray8", "hsl(30 8% 7%)"],   ["c-gray9", "hsl(30 2% 4%)"],
+  ]},
+  { group: "Red ramp", ramp: true, vars: [
+    ["c-red1", "hsl(17 100% 95%)"], ["c-red2", "hsl(17 80% 85%)"], ["c-red3", "hsl(17 70% 75%)"],
+    ["c-red4", "hsl(17 70% 65%)"],  ["c-red5", "hsl(17 70% 55%)"], ["c-red6", "hsl(17 70% 45%)"],
+    ["c-red7", "hsl(17 70% 35%)"],  ["c-red8", "hsl(17 70% 25%)"], ["c-red9", "hsl(17 70% 15%)"],
+  ]},
+  { group: "Green ramp", ramp: true, vars: [
+    ["c-green1", "hsl(98 21% 95%)"], ["c-green2", "hsl(98 21% 85%)"], ["c-green3", "hsl(98 21% 75%)"],
+    ["c-green4", "hsl(98 23% 65%)"], ["c-green5", "hsl(98 25% 55%)"], ["c-green6", "hsl(98 23% 45%)"],
+    ["c-green7", "hsl(98 21% 35%)"], ["c-green8", "hsl(98 21% 25%)"], ["c-green9", "hsl(98 21% 15%)"],
+  ]},
+  { group: "Blue ramp", ramp: true, vars: [
+    ["c-blue1", "hsl(221 30% 94%)"], ["c-blue2", "hsl(221 30% 84%)"], ["c-blue3", "hsl(221 31% 74%)"],
+    ["c-blue4", "hsl(221 33% 64%)"], ["c-blue5", "hsl(221 35% 54%)"], ["c-blue6", "hsl(221 40% 44%)"],
+    ["c-blue7", "hsl(221 30% 34%)"], ["c-blue8", "hsl(221 27% 24%)"], ["c-blue9", "hsl(221 27% 14%)"],
+  ]},
+  { group: "Yellow ramp", ramp: true, vars: [
+    ["c-yellow1", "hsl(41 79% 95%)"], ["c-yellow2", "hsl(41 79% 85%)"], ["c-yellow3", "hsl(41 79% 75%)"],
+    ["c-yellow4", "hsl(41 79% 65%)"], ["c-yellow5", "hsl(41 79% 55%)"], ["c-yellow6", "hsl(41 79% 45%)"],
+    ["c-yellow7", "hsl(41 79% 35%)"], ["c-yellow8", "hsl(41 79% 25%)"], ["c-yellow9", "hsl(41 79% 15%)"],
+  ]},
+  { group: "Plain", vars: [["white", "#ffffff", "white"], ["black", "#000000", "black"]] },
+];
+const VALUE = Object.fromEntries(PALETTE.flatMap(g => g.vars.map(([n, v]) => [n, v])));
+
+// ---------- bb tokens you actually set (everything else derives) ----------
+// on: which surface the token is read against, for the contrast badge
+const TOKENS = [
+  ["canvas",                 "base surface; every neutral fill/border mixes ink into it"],
+  ["ink",                    "base text; strength of neutral fills/borders", "canvas"],
+  ["primary",                "accent: primary buttons, links, focus ring, selection", "canvas"],
+  ["primary-foreground",     "text/icons on a primary fill", "primary"],
+  ["file-accent",            "file-path titles in the timeline", "canvas"],
+  ["destructive",            "delete buttons, failing/closed PR fills"],
+  ["destructive-foreground", "text on a destructive fill", "destructive"],
+  ["destructive-text",       "destructive text on canvas (aim ≥ 4.5)", "canvas"],
+  ["warning",                "warning fills"],
+  ["warning-text",           "warning text on canvas", "canvas"],
+  ["attention",              "attention dot (unread / needs you)"],
+  ["success",                "passing checks, open PR", "canvas"],
+  ["diff-added",             "added lines in diffs"],
+  ["diff-removed",           "removed lines in diffs"],
+  ["pr-merged",              "merged PR", "canvas"],
+];
+
+const PRESETS = {
+  "Warm ramps": {
+    light: { canvas: "c-gray1", ink: "c-gray8", primary: "c-blue6", "primary-foreground": "white",
+      "file-accent": "c-blue6", destructive: "c-red6", "destructive-foreground": "white", "destructive-text": "c-red7",
+      warning: "c-yellow5", "warning-text": "c-yellow8", attention: "c-yellow5", success: "c-green7",
+      "diff-added": "c-green6", "diff-removed": "c-red5", "pr-merged": "po-purple" },
+    dark: { canvas: "c-gray8", ink: "c-gray2", primary: "c-blue4", "primary-foreground": "c-gray9",
+      "file-accent": "c-blue3", destructive: "c-red6", "destructive-foreground": "white", "destructive-text": "c-red4",
+      warning: "c-yellow5", "warning-text": "c-yellow4", attention: "c-yellow5", success: "c-green5",
+      "diff-added": "c-green5", "diff-removed": "c-red5", "pr-merged": "pastel-lilac" },
+  },
+  "Parchment + ultramarine": {
+    light: { canvas: "s3-parchment", ink: "s2-night", primary: "s3-ultramarine", "primary-foreground": "white",
+      "file-accent": "s3-ultramarine", destructive: "s3-signal", "destructive-foreground": "white", "destructive-text": "s3-signal",
+      warning: "s2-ochre", "warning-text": "c-yellow8", attention: "s2-copper", success: "s1-pine",
+      "diff-added": "s1-pine", "diff-removed": "s2-brick", "pr-merged": "po-purple" },
+    dark: { canvas: "s2-night", ink: "s3-parchment", primary: "s3-cyan", "primary-foreground": "s2-night",
+      "file-accent": "s3-cyan", destructive: "s3-signal", "destructive-foreground": "white", "destructive-text": "pastel-salmon",
+      warning: "s2-ochre", "warning-text": "s1-mustard", attention: "s2-copper", success: "po-green",
+      "diff-added": "po-green", "diff-removed": "s2-brick", "pr-merged": "pastel-lilac" },
+  },
+  "Forest + mustard": {
+    light: { canvas: "pastel-wheat", ink: "s1-forest", primary: "s1-pine", "primary-foreground": "pastel-wheat",
+      "file-accent": "s1-pine", destructive: "s1-terracotta", "destructive-foreground": "white", "destructive-text": "c-red7",
+      warning: "s1-mustard", "warning-text": "c-yellow8", attention: "s1-mustard", success: "po-green",
+      "diff-added": "po-green", "diff-removed": "s1-terracotta", "pr-merged": "po-purple" },
+    dark: { canvas: "s1-ink", ink: "pastel-wheat", primary: "s1-mustard", "primary-foreground": "s1-ink",
+      "file-accent": "pastel-mint", destructive: "s1-terracotta", "destructive-foreground": "white", "destructive-text": "pastel-salmon",
+      warning: "s1-mustard", "warning-text": "s1-mustard", attention: "s1-mustard", success: "po-teal",
+      "diff-added": "po-green", "diff-removed": "s1-terracotta", "pr-merged": "pastel-lilac" },
+  },
+  "Pastel paper": {
+    light: { canvas: "pastel-mist", ink: "c-gray8", primary: "po-teal", "primary-foreground": "white",
+      "file-accent": "po-teal", destructive: "po-red-orange", "destructive-foreground": "white", "destructive-text": "c-red7",
+      warning: "po-orange", "warning-text": "c-red8", attention: "po-orange", success: "po-green",
+      "diff-added": "pastel-mint", "diff-removed": "pastel-salmon", "pr-merged": "po-purple" },
+    dark: { canvas: "c-gray7", ink: "pastel-sand", primary: "pastel-sky", "primary-foreground": "c-gray9",
+      "file-accent": "pastel-sky", destructive: "po-red-orange", "destructive-foreground": "white", "destructive-text": "pastel-salmon",
+      warning: "po-orange", "warning-text": "pastel-butter", attention: "po-orange", success: "pastel-mint",
+      "diff-added": "pastel-mint", "diff-removed": "pastel-salmon", "pr-merged": "pastel-lilac" },
+  },
+};
+
+let state = structuredClone(PRESETS["Warm ramps"]);
+
+// ---------- inject palette vars ----------
+const style = document.createElement("style");
+style.textContent = ":root {\n" + Object.entries(VALUE).map(([n, v]) => `  --${n}: ${v};`).join("\n") + "\n}";
+document.head.appendChild(style);
+
+const $ = s => document.querySelector(s);
+const toast = msg => { const t = $("#toast"); t.textContent = msg; t.classList.add("on"); setTimeout(() => t.classList.remove("on"), 1200); };
+const copy = (text, msg) => {
+  (navigator.clipboard?.writeText(text) ?? Promise.reject()).then(() => toast(msg), () => {
+    $("#out").value = text; $("#out").select(); toast("Clipboard blocked; text is in the box below");
+  });
+};
+
+// ---------- palette swatches ----------
+const pal = $("#palette");
+for (const g of PALETTE) {
+  const h = document.createElement("h3"); h.textContent = g.group; pal.appendChild(h);
+  const wrap = document.createElement("div"); wrap.className = g.ramp ? "ramp" : "swatches";
+  for (const [n, v, label] of g.vars) {
+    const sw = document.createElement("div"); sw.className = "sw"; sw.title = v;
+    sw.innerHTML = `<div class="chip" style="background:var(--${n})"></div><div class="lbl">${label ?? n.split("-").pop()}<code>--${n}</code></div>`;
+    sw.onclick = () => copy(`var(--${n})`, `Copied var(--${n})`);
+    wrap.appendChild(sw);
+  }
+  pal.appendChild(wrap);
+}
+
+// ---------- mock bb window ----------
+const MOCK = mode => `
+<div class="app">
+  <aside>
+    <div class="side-h">bb-themes</div>
+    <div class="row selected">Restyle typography<span class="adot"></span></div>
+    <div class="row hover">Palette playground</div>
+    <div class="row">Fix sync bug</div>
+    <div class="side-h">notes</div>
+    <div class="row">Weekly review</div>
+    <div class="row dim">3 archived</div>
+  </aside>
+  <main>
+    <header>Restyle typography <span class="mode-tag">${mode}</span> <span class="meta">· opus · 2m ago</span></header>
+    <div class="thread">
+      <div class="user">Use iA Writer Quattro for chat and UI, keep the colors.</div>
+      <div class="asst">
+        <p>Done. I stripped the color overrides from <span class="file">~/.bb/theme/oskar/theme.css</span> and re-ran <a>bb theme set oskar</a>.</p>
+        <div class="readback">Ran 2 commands · Read theming.md</div>
+      </div>
+      <div class="diff">
+        <div class="fh">theme.css</div>
+        <div class="l add">+  --font-sans: "iA Writer Quattro S", sans-serif;</div>
+        <div class="l rem">-  --canvas: #f8f8f6;</div>
+        <div class="l">   }</div>
+      </div>
+      <pre>bb theme set oskar
+<span class="ts"># Theme set to Custom theme 'oskar'</span></pre>
+      <div class="badges">
+        <span class="b success">checks passing</span><span class="b merged">merged</span>
+        <span class="b warn">1 warning</span><span class="b destr">build failed</span><span class="b chip">opus</span>
+        <span class="ts">12:04</span>
+      </div>
+      <div class="buttons">
+        <button class="btn-primary">Apply</button><button class="btn-secondary">Cancel</button>
+        <button class="btn-destructive">Delete</button><button class="btn-focus">Focused</button>
+      </div>
+    </div>
+    <div class="composer"><span>Message the agent…</span><kbd>⏎</kbd></div>
+  </main>
+</div>`;
+
+const panes = {};
+for (const mode of ["light", "dark"]) {
+  const p = document.createElement("div"); p.className = "pane"; p.innerHTML = MOCK(mode);
+  $("#panes").appendChild(p); panes[mode] = p;
+}
+
+// ---------- contrast ----------
+const probe = document.createElement("span"); probe.style.display = "none"; document.body.appendChild(probe);
+function rgb(varName) {
+  probe.style.color = `var(--${varName})`;
+  const c = getComputedStyle(probe).color;
+  const m = c.match(/[\d.]+/g).map(Number);
+  return c.startsWith("color(") ? m.slice(0, 3).map(x => x * 255) : m.slice(0, 3);
+}
+function lum([r, g, b]) {
+  const f = x => (x /= 255) <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4;
+  return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+}
+function contrast(a, b) {
+  const [x, y] = [lum(rgb(a)), lum(rgb(b))].sort((m, n) => n - m);
+  return (x + 0.05) / (y + 0.05);
+}
+
+// ---------- mapping table ----------
+const tbody = $("#map");
+const options = PALETTE.map(g =>
+  `<optgroup label="${g.group}">` + g.vars.map(([n, , l]) => `<option value="${n}">${n}${l ? " · " + l : ""}</option>`).join("") + "</optgroup>"
+).join("");
+
+for (const [tok, desc, on] of TOKENS) {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `<td class="tok"><code>--${tok}</code></td>` +
+    ["light", "dark"].map(mode => `<td><div class="pick"><span class="dot" data-dot="${mode}"></span>
+      <select data-mode="${mode}" data-tok="${tok}">${options}</select><span class="cr" data-cr="${mode}"></span></div></td>`).join("") +
+    `<td class="desc">${desc}${on ? ` <span style="opacity:.7">(vs ${on})</span>` : ""}</td>`;
+  tr.dataset.tok = tok; tr.dataset.on = on ?? "";
+  tbody.appendChild(tr);
+  tr.querySelectorAll("select").forEach(s => s.onchange = () => { state[s.dataset.mode][tok] = s.value; render(); });
+}
+
+function render() {
+  for (const mode of ["light", "dark"]) {
+    const m = state[mode];
+    for (const [tok] of TOKENS) panes[mode].style.setProperty(`--${tok}`, `var(--${m[tok]})`);
+  }
+  for (const tr of tbody.rows) {
+    const tok = tr.dataset.tok, on = tr.dataset.on;
+    for (const mode of ["light", "dark"]) {
+      const v = state[mode][tok];
+      tr.querySelector(`select[data-mode=${mode}]`).value = v;
+      tr.querySelector(`[data-dot=${mode}]`).style.background = `var(--${v})`;
+      const cr = tr.querySelector(`[data-cr=${mode}]`);
+      if (on) {
+        const r = contrast(v, state[mode][on]);
+        cr.textContent = r.toFixed(1);
+        cr.className = "cr " + (r >= 4.5 ? "ok" : r >= 3 ? "meh" : "bad");
+      } else { cr.textContent = ""; cr.className = "cr"; }
+    }
+  }
+  $("#out").value = themeCSS();
+}
+
+function themeCSS() {
+  const block = mode => TOKENS.map(([tok]) => `  --${tok}: ${VALUE[state[mode][tok]]}; /* ${state[mode][tok]} */`).join("\n");
+  return `:root,
+.light {
+${block("light")}
+  --muted-foreground: color-mix(in oklch, var(--ink) 70%, var(--canvas));
+  --subtle-foreground: color-mix(in oklch, var(--ink) 58%, var(--canvas));
+  --readback-foreground: color-mix(in oklch, var(--ink) 64%, var(--canvas));
+}
+
+.dark {
+${block("dark")}
+}
+`;
+}
+
+// ---------- presets & export ----------
+for (const name of Object.keys(PRESETS)) {
+  const b = document.createElement("button"); b.textContent = name;
+  b.onclick = () => { state = structuredClone(PRESETS[name]); render(); toast(name); };
+  $("#presets").appendChild(b);
+}
+$("#copy-theme").onclick = () => copy(themeCSS(), "Copied theme color blocks");
+$("#copy-palette").onclick = () => copy(style.textContent, "Copied palette variables");
+
+render();
+</script>
+</body>
+</html>

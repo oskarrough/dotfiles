@@ -1,6 +1,8 @@
-# SSH key agent
-if type -q keychain
-    keychain --eval --quiet id_ed25519 | source
+# Reuse an SSH agent with loaded keys; let keychain recover if needed.
+if not command ssh-add -l >/dev/null 2>&1
+    if command -q keychain
+        keychain --eval --quiet id_ed25519 | source
+    end
 end
 
 set -gx EDITOR nvim
@@ -78,11 +80,8 @@ end
 # pnpm end
 
 
-if test -x "$HOME/.local/bin/mise"
-    "$HOME/.local/bin/mise" activate fish | source
-else if command -q mise
-    mise activate fish | source
-end
+# Resolve project tool versions when commands run, without startup/prompt hooks.
+fish_add_path --global --prepend "$HOME/.local/share/mise/shims"
 
 
 # Added by LM Studio CLI tool (lms)
@@ -95,4 +94,5 @@ set -gx PATH "$HOME/.local/bin" $PATH
 if test -f $__fish_config_dir/daytona.completion_script.fish
     source $__fish_config_dir/daytona.completion_script.fish
 end
+
 

@@ -1,0 +1,401 @@
+/* oskar: iA Writer Quattro for UI and chat, warm paper grays, muted blue accent */
+
+@font-face {
+  font-family: "iA Writer Quattro S";
+  src: url("https://cdn.jsdelivr.net/gh/iaolo/iA-Fonts@master/iA%20Writer%20Quattro/Webfonts/iAWriterQuattroS-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "iA Writer Quattro S";
+  src: url("https://cdn.jsdelivr.net/gh/iaolo/iA-Fonts@master/iA%20Writer%20Quattro/Webfonts/iAWriterQuattroS-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "iA Writer Quattro S";
+  src: url("https://cdn.jsdelivr.net/gh/iaolo/iA-Fonts@master/iA%20Writer%20Quattro/Webfonts/iAWriterQuattroS-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "iA Writer Quattro S";
+  src: url("https://cdn.jsdelivr.net/gh/iaolo/iA-Fonts@master/iA%20Writer%20Quattro/Webfonts/iAWriterQuattroS-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Palette. Tokens below point at these; reuse them for kitty, herdr, etc. */
+:root {
+  --white: #ffffff;
+  --pastel-lilac: #ddd0e5;
+  --po-purple: hsl(320 25% 40%);
+
+  --c-gray1: hsl(50 14% 96%);
+  --c-gray2: hsl(50 14% 91%);
+  --c-gray3: hsl(50 10% 76%);
+  --c-gray4: hsl(50 10% 56%);
+  --c-gray5: hsl(30 10% 36%);
+  --c-gray6: hsl(30 10% 26%);
+  --c-gray7: hsl(30 8% 16%);
+  --c-gray8: hsl(30 8% 7%);
+  --c-gray9: hsl(30 2% 4%);
+
+  --c-red1: hsl(17 100% 95%);
+  --c-red2: hsl(17 80% 85%);
+  --c-red3: hsl(17 70% 75%);
+  --c-red4: hsl(17 70% 65%);
+  --c-red5: hsl(17 70% 55%);
+  --c-red6: hsl(17 70% 45%);
+  --c-red7: hsl(17 70% 35%);
+  --c-red8: hsl(17 70% 25%);
+  --c-red9: hsl(17 70% 15%);
+
+  --c-green1: hsl(98 21% 95%);
+  --c-green2: hsl(98 21% 85%);
+  --c-green3: hsl(98 21% 75%);
+  --c-green4: hsl(98 23% 65%);
+  --c-green5: hsl(98 25% 55%);
+  --c-green6: hsl(98 23% 45%);
+  --c-green7: hsl(98 21% 35%);
+  --c-green8: hsl(98 21% 25%);
+  --c-green9: hsl(98 21% 15%);
+
+  --c-blue1: hsl(221 30% 94%);
+  --c-blue2: hsl(221 30% 84%);
+  --c-blue3: hsl(221 31% 74%);
+  --c-blue4: hsl(221 33% 64%);
+  --c-blue5: hsl(221 35% 54%);
+  --c-blue6: hsl(221 40% 44%);
+  --c-blue7: hsl(221 30% 34%);
+  --c-blue8: hsl(221 27% 24%);
+  --c-blue9: hsl(221 27% 14%);
+
+  --c-yellow1: hsl(41 79% 95%);
+  --c-yellow2: hsl(41 79% 85%);
+  --c-yellow3: hsl(41 79% 75%);
+  --c-yellow4: hsl(41 79% 65%);
+  --c-yellow5: hsl(41 79% 55%);
+  --c-yellow6: hsl(41 79% 45%);
+  --c-yellow7: hsl(41 79% 35%);
+  --c-yellow8: hsl(41 79% 25%);
+  --c-yellow9: hsl(41 79% 15%);
+}
+
+/*
+ * Every bb theme token, commented out at bb's default value.
+ * Uncomment a line to override it. Most surfaces derive from --canvas and
+ * --ink, so start there; --primary drives ring, selection, and focus.
+ * :root matches in both modes, so fonts and layout live only in this block;
+ * .dark re-sets the colors.
+ */
+
+:root,
+.light {
+  /* Anchors */
+  --canvas: var(--c-gray1);
+  /* --ink: var(--c-gray8); */
+
+  /* Accent */
+  /* --primary: var(--c-blue6); */
+  /* --primary-foreground: var(--white); */
+  /* --ring: var(--primary); */
+  /* --timeline-accent: oklch(0.55 0.1 250); */
+  /* --file-accent: var(--c-blue6); */
+
+  /* Text tiers */
+  /* --foreground: var(--ink); */
+  /* --muted-foreground: color-mix(in oklch, var(--ink) 70%, var(--canvas)); */
+  /* --subtle-foreground: color-mix(in oklch, var(--ink) 58%, var(--canvas)); */
+  /* --readback-foreground: color-mix(in oklch, var(--ink) 64%, var(--canvas)); */
+  /* --version-upgrade: color-mix(in oklch, var(--ink) 96%, var(--canvas)); */
+
+  /* Surfaces */
+  /* --background: var(--canvas); */
+  /* --card: var(--canvas); */
+  /* --card-foreground: var(--ink); */
+  /* --popover: var(--canvas); */
+  /* --popover-foreground: var(--ink); */
+  /* --secondary: color-mix(in oklch, var(--ink) 8%, var(--canvas)); */
+  /* --secondary-foreground: var(--ink); */
+  /* --accent: color-mix(in oklch, var(--ink) 8%, var(--canvas)); */
+  /* --accent-foreground: var(--ink); */
+  /* --muted: color-mix(in oklch, var(--ink) 11%, var(--canvas)); */
+  /* --state-hover: color-mix(in oklab, var(--ink) 5.9%, transparent); */
+  /* --state-active: color-mix(in oklab, var(--ink) 11.8%, transparent); */
+  /* --surface-recessed: color-mix(in oklab, var(--ink) 6%, transparent); */
+  /* --surface-recessed-solid: color-mix(in oklab, var(--ink) 6%, var(--canvas)); */
+  /* --surface-recessed-soft-solid: color-mix(in oklch, var(--ink) 4.2%, var(--canvas)); */
+  /* --surface-raised: color-mix(in oklab, var(--ink) 2.5%, transparent); */
+  /* --surface-raised-solid: color-mix(in oklab, var(--ink) 2.5%, var(--canvas)); */
+  /* --surface-scrim: color-mix(in oklab, var(--canvas) 92%, transparent); */
+  /* --surface-selected: color-mix(in oklab, var(--primary) 16%, transparent); */
+  /* --surface-selected-border: color-mix(in oklab, var(--primary) 35%, transparent); */
+  /* --surface-destructive: color-mix(in oklab, var(--destructive) 6%, transparent); */
+  /* --surface-destructive-border: color-mix(in oklab, var(--destructive) 25%, transparent); */
+  /* --surface-attention: color-mix(in oklab, var(--attention) 14%, transparent); */
+
+  /* Borders */
+  /* --border: color-mix(in oklch, var(--ink) 14%, var(--canvas)); */
+  /* --border-hairline: color-mix(in oklch, var(--ink) 14.7%, var(--canvas)); */
+  /* --border-seam: color-mix(in oklch, var(--ink) 9.5%, var(--canvas)); */
+  /* --border-seam-vertical: var(--border-seam); */
+  /* --input: color-mix(in oklch, var(--ink) 29.5%, var(--canvas)); */
+
+  /* Sidebar */
+  /* --sidebar: color-mix(in oklch, var(--ink) 2.2%, var(--canvas)); */
+  /* --sidebar-foreground: var(--ink); */
+  /* --sidebar-accent: color-mix(in oklch, var(--ink) 8%, var(--canvas)); */
+  /* --sidebar-accent-foreground: var(--ink); */
+  /* --sidebar-border: color-mix(in oklch, var(--ink) 14%, var(--canvas)); */
+  /* --sidebar-ring: var(--primary); */
+  /* --sidebar-search-match: color-mix(in oklab, oklch(0.8 0.13 88), var(--canvas) 76%); */
+  /* --sidebar-search-match-border: color-mix(in oklab, oklch(0.8 0.13 88), var(--canvas) 60%); */
+
+  /* Semantic / status */
+  --destructive: var(--c-red6);
+  --destructive-foreground: var(--white);
+  --destructive-text: var(--c-red7);
+  --attention: var(--c-yellow5);
+  --warning: var(--c-yellow5);
+  --warning-text: var(--c-yellow8);
+  --success: var(--c-green7);
+  /* --success-foreground: color-mix(in oklch, var(--success) 45%, var(--ink)); */
+  --diff-added: var(--c-green6);
+  --diff-removed: var(--c-red5);
+  --pr-merged: var(--po-purple);
+  /* --brand-discord: oklch(0.5774 0.2091 273.85); */
+
+  /* Diff renderer (follows the tokens above) */
+  /* --diffs-light-bg: var(--background); */
+  /* --diffs-light: var(--foreground); */
+  /* --diffs-light-addition-color: var(--diff-added); */
+  /* --diffs-light-deletion-color: var(--diff-removed); */
+
+  /* Prompt mention pills */
+  /* --pill-surface: linear-gradient(to bottom, color-mix(in oklch, var(--ink) 4.4%, var(--canvas)), color-mix(in oklch, var(--ink) 4.7%, var(--canvas))); */
+  /* --pill-surface-border: var(--border); */
+  /* --pill-foreground: var(--ink); */
+  /* --pill-icon: var(--ink); */
+  /* --pill-shadow: 0 1px 1px 0 oklch(0.2 0 0 / 0.02); */
+  /* --pill-surface-selected: linear-gradient(to bottom, color-mix(in oklch, var(--ink) 11.8%, var(--canvas)), color-mix(in oklch, var(--ink) 13%, var(--canvas))); */
+  /* --pill-surface-selected-border: color-mix(in oklch, var(--ink) 19.2%, var(--canvas)); */
+
+  /* Fonts (mode-independent) */
+  --font-sans: "iA Writer Quattro S", Inter, system-ui, sans-serif;
+  /* --font-mono: Iosevka Term, monospace; */
+  /* --font-terminal: var(--font-mono); */
+  /* --font-serif: Georgia, serif; */
+
+  /* Shape and layout (mode-independent) */
+  /* --radius: 0.5rem; */
+  /* --spacing: 0.25rem; */
+  /* --icon-stroke-width: 1.75; */
+  /* --tracking-normal: 0em; */
+  /* --bb-sidebar-row-height: 1.75rem; */
+  /* --bb-sidebar-row-height-coarse: 2.5rem; */
+  /* --resource-source-shelf-inset: calc(var(--spacing) * 3); */
+  /* --resource-source-shelf-section-gap: calc(var(--spacing) * 2); */
+  /* --resource-source-shelf-label-gap: calc(var(--spacing) * 1.5); */
+  /* --resource-source-shelf-action-inline: calc(var(--spacing) * 1.5); */
+  /* --resource-source-shelf-action-block: var(--spacing); */
+
+  /* Shadows */
+  /* --shadow-x: 0px; */
+  /* --shadow-y: 2px; */
+  /* --shadow-blur: 0px; */
+  /* --shadow-spread: 0px; */
+  /* --shadow-opacity: 0.15; */
+  /* --shadow-color: hsl(0 0% 20% / 0.1); */
+  /* --shadow-2xs: 0px 2px 0px 0px hsl(0 0% 20% / 0.07); */
+  /* --shadow-xs: 0px 2px 0px 0px hsl(0 0% 20% / 0.07); */
+  /* --shadow-sm: 0px 2px 0px 0px hsl(0 0% 20% / 0.15), 0px 1px 2px -1px hsl(0 0% 20% / 0.15); */
+  /* --shadow: 0px 2px 0px 0px hsl(0 0% 20% / 0.15), 0px 1px 2px -1px hsl(0 0% 20% / 0.15); */
+  /* --shadow-md: 0px 2px 0px 0px hsl(0 0% 20% / 0.15), 0px 2px 4px -1px hsl(0 0% 20% / 0.15); */
+  /* --shadow-lift: 0px -4px 12px -4px hsl(0 0% 20% / 0.07); */
+  /* --shadow-lg: 0px 2px 0px 0px hsl(0 0% 20% / 0.15), 0px 4px 6px -1px hsl(0 0% 20% / 0.15); */
+  /* --shadow-xl: 0px 2px 0px 0px hsl(0 0% 20% / 0.15), 0px 8px 10px -1px hsl(0 0% 20% / 0.15); */
+  /* --shadow-2xl: 0px 2px 0px 0px hsl(0 0% 20% / 0.38); */
+
+  /* Terminal ANSI palette */
+  /* --ansi-0: #000000; */
+  /* --ansi-1: #a11616; */
+  /* --ansi-2: #13704a; */
+  /* --ansi-3: #7f6a00; */
+  /* --ansi-4: #1f5ca6; */
+  /* --ansi-5: #8a2f8a; */
+  /* --ansi-6: #0b6f88; */
+  /* --ansi-7: #3d3d3d; */
+  /* --ansi-8: #3a3a3a; */
+  /* --ansi-9: #d32f2f; */
+  /* --ansi-10: #197c52; */
+  /* --ansi-11: #a35f00; */
+  /* --ansi-12: #2666b0; */
+  /* --ansi-13: #9b349b; */
+  /* --ansi-14: #0f7798; */
+  /* --ansi-15: #1f1f1f; */
+  /* Text drawn on each ANSI color used as a background */
+  /* --ansi-bg-fg-0: #ffffff; */
+  /* --ansi-bg-fg-1: #ffffff; */
+  /* --ansi-bg-fg-2: #ffffff; */
+  /* --ansi-bg-fg-3: #ffffff; */
+  /* --ansi-bg-fg-4: #ffffff; */
+  /* --ansi-bg-fg-5: #ffffff; */
+  /* --ansi-bg-fg-6: #ffffff; */
+  /* --ansi-bg-fg-7: #ffffff; */
+  /* --ansi-bg-fg-8: #ffffff; */
+  /* --ansi-bg-fg-9: #ffffff; */
+  /* --ansi-bg-fg-10: #ffffff; */
+  /* --ansi-bg-fg-11: #ffffff; */
+  /* --ansi-bg-fg-12: #ffffff; */
+  /* --ansi-bg-fg-13: #ffffff; */
+  /* --ansi-bg-fg-14: #ffffff; */
+  /* --ansi-bg-fg-15: #ffffff; */
+}
+
+.dark {
+  /* Anchors */
+  --canvas: var(--c-gray8);
+  --ink: var(--c-gray2);
+
+  /* Accent */
+  --primary: var(--c-blue4);
+  --primary-foreground: var(--c-gray9);
+  /* --ring: var(--primary); */
+  /* --timeline-accent: oklch(0.72 0.09 250); */
+  --file-accent: var(--c-blue3);
+
+  /* Text tiers */
+  /* --foreground: var(--ink); */
+  /* --muted-foreground: oklch(0.78 0 0); */
+  /* --subtle-foreground: oklch(0.68 0 0); */
+  /* --readback-foreground: oklch(0.715 0 0); */
+  /* --version-upgrade: color-mix(in oklch, var(--ink) 96%, var(--canvas)); */
+
+  /* Surfaces */
+  /* --background: var(--canvas); */
+  /* --card: var(--canvas); */
+  /* --card-foreground: var(--ink); */
+  /* --popover: var(--canvas); */
+  /* --popover-foreground: var(--ink); */
+  /* --secondary: color-mix(in oklch, var(--ink) 13%, var(--canvas)); */
+  /* --secondary-foreground: var(--ink); */
+  /* --accent: color-mix(in oklch, var(--ink) 13%, var(--canvas)); */
+  /* --accent-foreground: var(--ink); */
+  /* --muted: color-mix(in oklch, var(--ink) 16%, var(--canvas)); */
+  /* --state-hover: color-mix(in oklab, var(--ink) 13.8%, transparent); */
+  /* --state-active: color-mix(in oklab, var(--ink) 22.5%, transparent); */
+  /* --surface-recessed: color-mix(in oklab, var(--ink) 6%, transparent); */
+  /* --surface-recessed-solid: color-mix(in oklab, var(--ink) 6%, var(--canvas)); */
+  /* --surface-recessed-soft-solid: color-mix(in oklch, var(--ink) 4.2%, var(--canvas)); */
+  /* --surface-raised: color-mix(in oklab, var(--ink) 2.5%, transparent); */
+  /* --surface-raised-solid: color-mix(in oklab, var(--ink) 2.5%, var(--canvas)); */
+  /* --surface-scrim: color-mix(in oklab, var(--canvas) 92%, transparent); */
+  /* --surface-selected: color-mix(in oklab, var(--primary) 12%, transparent); */
+  /* --surface-selected-border: color-mix(in oklab, var(--primary) 35%, transparent); */
+  /* --surface-destructive: color-mix(in oklab, var(--destructive) 8%, transparent); */
+  /* --surface-destructive-border: color-mix(in oklab, var(--destructive) 30%, transparent); */
+  /* --surface-attention: color-mix(in oklab, var(--attention) 12%, transparent); */
+
+  /* Borders */
+  /* --border: color-mix(in oklch, var(--ink) 19.4%, var(--canvas)); */
+  /* --border-hairline: color-mix(in oklch, var(--ink) 21%, var(--canvas)); */
+  /* --border-seam: color-mix(in oklch, var(--ink) 11%, var(--canvas)); */
+  /* --border-seam-vertical: var(--border-seam); */
+  /* --input: color-mix(in oklch, var(--ink) 32.6%, var(--canvas)); */
+
+  /* Sidebar */
+  /* --sidebar: color-mix(in oklch, var(--ink) 4.3%, var(--canvas)); */
+  /* --sidebar-foreground: var(--ink); */
+  /* --sidebar-accent: color-mix(in oklch, var(--ink) 12%, var(--canvas)); */
+  /* --sidebar-accent-foreground: var(--ink); */
+  /* --sidebar-border: color-mix(in oklch, var(--ink) 18.1%, var(--canvas)); */
+  /* --sidebar-ring: var(--primary); */
+  /* --sidebar-search-match: color-mix(in oklab, oklch(0.8 0.13 88), var(--canvas) 80%); */
+  /* --sidebar-search-match-border: color-mix(in oklab, oklch(0.8 0.13 88), var(--canvas) 67%); */
+
+  /* Semantic / status */
+  --destructive: var(--c-red6);
+  --destructive-foreground: var(--white);
+  --destructive-text: var(--c-red4);
+  --attention: var(--c-yellow5);
+  --warning: var(--c-yellow5);
+  --warning-text: var(--c-yellow4);
+  --success: var(--c-green5);
+  /* --success-foreground: color-mix(in oklch, var(--success) 45%, var(--ink)); */
+  --diff-added: var(--c-green5);
+  --diff-removed: var(--c-red5);
+  --pr-merged: var(--pastel-lilac);
+  /* --brand-discord: var(--foreground); */
+
+  /* Diff renderer (follows the tokens above) */
+  /* --diffs-dark-bg: var(--background); */
+  /* --diffs-dark: var(--foreground); */
+  /* --diffs-dark-addition-color: var(--diff-added); */
+  /* --diffs-dark-deletion-color: var(--diff-removed); */
+
+  /* Prompt mention pills */
+  /* --pill-surface: linear-gradient(to bottom, color-mix(in oklch, var(--ink) 13%, var(--canvas)), color-mix(in oklch, var(--ink) 11.9%, var(--canvas))); */
+  /* --pill-surface-border: var(--border); */
+  /* --pill-foreground: var(--ink); */
+  /* --pill-icon: var(--ink); */
+  /* --pill-shadow: 0 1px 1px 0 oklch(0 0 0 / 0.08); */
+  /* --pill-surface-selected: linear-gradient(to bottom, color-mix(in oklch, var(--ink) 20.7%, var(--canvas)), color-mix(in oklch, var(--ink) 18.7%, var(--canvas))); */
+  /* --pill-surface-selected-border: color-mix(in oklch, var(--ink) 25.2%, var(--canvas)); */
+
+  /* Shadows */
+  /* --shadow-x: 0px; */
+  /* --shadow-y: 2px; */
+  /* --shadow-blur: 0px; */
+  /* --shadow-spread: 0px; */
+  /* --shadow-opacity: 0.4; */
+  /* --shadow-color: hsl(0 0% 0% / 0.4); */
+  /* --shadow-2xs: 0px 2px 0px 0px hsl(0 0% 0% / 0.2); */
+  /* --shadow-xs: 0px 2px 0px 0px hsl(0 0% 0% / 0.2); */
+  /* --shadow-sm: 0px 2px 0px 0px hsl(0 0% 0% / 0.3), 0px 1px 2px -1px hsl(0 0% 0% / 0.4); */
+  /* --shadow: 0px 2px 0px 0px hsl(0 0% 0% / 0.3), 0px 1px 2px -1px hsl(0 0% 0% / 0.4); */
+  /* --shadow-md: 0px 2px 0px 0px hsl(0 0% 0% / 0.3), 0px 2px 4px -1px hsl(0 0% 0% / 0.5); */
+  /* --shadow-lift: 0px -4px 12px -4px hsl(0 0% 0% / 0.26); */
+  /* --shadow-lg: 0px 2px 0px 0px hsl(0 0% 0% / 0.3), 0px 4px 6px -1px hsl(0 0% 0% / 0.5); */
+  /* --shadow-xl: 0px 2px 0px 0px hsl(0 0% 0% / 0.35), 0px 8px 10px -1px hsl(0 0% 0% / 0.55); */
+  /* --shadow-2xl: 0px 2px 0px 0px hsl(0 0% 0% / 0.6); */
+
+  /* Terminal ANSI palette */
+  /* --ansi-0: #858585; */
+  /* --ansi-1: #d85e5e; */
+  /* --ansi-2: #0dbc79; */
+  /* --ansi-3: #e5e510; */
+  /* --ansi-4: #3c88dc; */
+  /* --ansi-5: #c85ac8; */
+  /* --ansi-6: #11a8cd; */
+  /* --ansi-7: #e5e5e5; */
+  /* --ansi-8: #9a9a9a; */
+  /* --ansi-9: #ff6f6f; */
+  /* --ansi-10: #23d18b; */
+  /* --ansi-11: #f5f543; */
+  /* --ansi-12: #5aaaf2; */
+  /* --ansi-13: #d670d6; */
+  /* --ansi-14: #29b8db; */
+  /* --ansi-15: #ffffff; */
+  /* Text drawn on each ANSI color used as a background */
+  /* --ansi-bg-fg-0: #000000; */
+  /* --ansi-bg-fg-1: #000000; */
+  /* --ansi-bg-fg-2: #000000; */
+  /* --ansi-bg-fg-3: #000000; */
+  /* --ansi-bg-fg-4: #000000; */
+  /* --ansi-bg-fg-5: #000000; */
+  /* --ansi-bg-fg-6: #000000; */
+  /* --ansi-bg-fg-7: #000000; */
+  /* --ansi-bg-fg-8: #000000; */
+  /* --ansi-bg-fg-9: #000000; */
+  /* --ansi-bg-fg-10: #000000; */
+  /* --ansi-bg-fg-11: #000000; */
+  /* --ansi-bg-fg-12: #000000; */
+  /* --ansi-bg-fg-13: #000000; */
+  /* --ansi-bg-fg-14: #000000; */
+  /* --ansi-bg-fg-15: #000000; */
+}

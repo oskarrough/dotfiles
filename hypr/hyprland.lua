@@ -148,12 +148,19 @@ local function bind_locked_repeating(keys, command)
     hl.bind(keys, hl.dsp.exec_cmd(command), { locked = true, repeating = true })
 end
 
+-- Work around send_shortcut leaving synthetic keys pressed (Hyprland #14099).
+local function bind_shortcut(keys, mods, key, desc)
+    local shortcut = { mods = mods, key = key, window = "activewindow" }
+    hl.bind(keys, hl.dsp.send_key_state({ mods = shortcut.mods, key = shortcut.key, window = shortcut.window, state = "down" }), { description = desc })
+    hl.bind(keys, hl.dsp.send_key_state({ mods = shortcut.mods, key = shortcut.key, window = shortcut.window, state = "up" }), { release = true })
+end
+
 bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal), "Launch terminal")
 bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu), "Launch app menu")
 bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("xdg-open https://"), "Launch browser")
 bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd(fileManager), "Launch file manager")
 bind(mainMod .. " + SHIFT + O", hl.dsp.exec_cmd('command -v obsidian >/dev/null 2>&1 && obsidian vault="Notes" || xdg-open "obsidian://open?vault=Notes"'), "Launch Obsidian")
-bind(mainMod .. " + SHIFT + SLASH", hl.dsp.exec_cmd("uwsm-app -- keepassxc"), "Launch password")
+bind("SUPER + SHIFT + P", hl.dsp.exec_cmd("uwsm-app -- 1password"), "Launch 1Password")
 
 bind(mainMod .. " + W", hl.dsp.window.close(), "Close window")
 bind(mainMod .. " + SHIFT + M", hl.dsp.exit(), "Exit Hyprland")
@@ -191,9 +198,9 @@ hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tr
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
-bind(mainMod .. " + C", hl.dsp.send_shortcut({ mods = "CTRL", key = "Insert" }), "Universal copy")
-bind(mainMod .. " + V", hl.dsp.send_shortcut({ mods = "SHIFT", key = "Insert" }), "Universal paste")
-bind(mainMod .. " + X", hl.dsp.send_shortcut({ mods = "CTRL", key = "X" }), "Universal cut")
+bind_shortcut(mainMod .. " + C", "CTRL", "Insert", "Universal copy")
+bind_shortcut(mainMod .. " + V", "SHIFT", "Insert", "Universal paste")
+bind_shortcut(mainMod .. " + X", "CTRL", "X", "Universal cut")
 
 bind(mainMod .. " + F", hl.dsp.window.fullscreen(0), "Full screen")
 bind(mainMod .. " + CTRL + F", hl.dsp.window.fullscreen_state({ internal = 0, client = 2 }), "Tiled full screen")

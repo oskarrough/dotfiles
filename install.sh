@@ -9,6 +9,7 @@ DOTFILES="$(cd "$(dirname "$0")" && pwd)"
 LINKS=(
     "aerospace/aerospace.toml:$HOME/.config/aerospace/aerospace.toml"
     "fish/config.fish:$HOME/.config/fish/config.fish"
+    "fish/functions/bb.fish:$HOME/.config/fish/functions/bb.fish"
     "git/.gitconfig:$HOME/.gitconfig"
     "herdr/config.toml:$HOME/.config/herdr/config.toml"
     "hypr/hyprland.lua:$HOME/.config/hypr/hyprland.lua"
@@ -22,6 +23,7 @@ LINKS=(
     "waybar/style.css:$HOME/.config/waybar/style.css"
     "jj/config.toml:$HOME/.config/jj/config.toml"
     "omp/config.yml:$HOME/.omp/agent/config.yml"
+    "bb/theme/oskar/theme.css:$HOME/.bb/theme/oskar/theme.css"
 )
 
 # Add Windows configs only when WSL can resolve the Windows user profile.
