@@ -10,6 +10,7 @@ LINKS=(
     "aerospace/aerospace.toml:$HOME/.config/aerospace/aerospace.toml"
     "fish/config.fish:$HOME/.config/fish/config.fish"
     "git/.gitconfig:$HOME/.gitconfig"
+    "herdr/config.toml:$HOME/.config/herdr/config.toml"
     "hypr/hyprland.lua:$HOME/.config/hypr/hyprland.lua"
     "kitty/kitty.conf:$HOME/.config/kitty/kitty.conf"
     "kitty/current-theme.conf:$HOME/.config/kitty/current-theme.conf"
