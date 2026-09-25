@@ -4,7 +4,7 @@ name = "gruvbox"
 auto_switch = false
 
 [update]
-channel = "preview"
+channel = "stable"
 
 [ui.sidebar.agents]
 rows = [["state_icon", "machine", "workspace", "tab"], ["pane"]]

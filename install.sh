@@ -3,7 +3,28 @@
 # Exit on errors
 set -e
 
+# Dropbox sits at a different path per machine: never hardcode DOTFILES (resolve it here) and re-run to repoint symlinks.
 DOTFILES="$(cd "$(dirname "$0")" && pwd)"
+
+# Keep output scannable: render $HOME as ~. (case form: bash 5.3's ${1/#pat/rep} is broken)
+short() { case "$1" in "$HOME"|"$HOME"/*) printf '~%s' "${1#"$HOME"}";; *) printf '%s' "$1";; esac; }
+
+# Colour only when writing to a terminal.
+if [[ -t 1 ]]; then
+    BOLD=$'\033[1m'
+    RED=$'\033[31m'; GREEN=$'\033[32m'; CYAN=$'\033[36m'; RESET=$'\033[0m'
+else
+    BOLD=; RED=; GREEN=; CYAN=; RESET=
+fi
+
+# Unified diff of live ($2) vs repo ($1): '- live', '+ repo', labelled and coloured.
+render_diff() {
+    diff -u -L "live: $(short "$2")" -L "repo: $(short "$1")" "$2" "$1" | sed -E \
+        -e "s/^(---|\+\+\+).*/${BOLD}&${RESET}/" \
+        -e "s/^@@.*/${CYAN}&${RESET}/" \
+        -e "s/^\+[^+].*/${GREEN}&${RESET}/" \
+        -e "s/^-[^-].*/${RED}&${RESET}/"
+}
 
 # Source paths are relative to $DOTFILES; targets are absolute.
 LINKS=(
@@ -68,20 +89,38 @@ link_config() {
     fi
 
     if ! mkdir -p "$(dirname "$destination")" 2>/dev/null; then
-        echo "skip: $relative_source (target dir unavailable: $(dirname "$destination"))"
+        echo "skip: $relative_source (target dir unavailable: $(short "$(dirname "$destination")"))"
         return
     fi
 
     rm -f "$temporary"
     ln -s "$source" "$temporary"
 
+    # Existing real file that differs from ours: show it, require confirmation.
+    if [[ -f "$destination" && ! -L "$destination" ]] && ! cmp -s "$source" "$destination"; then
+        printf '\n%s\n' "${BOLD}── $relative_source differs from $(short "$destination")${RESET}"
+        render_diff "$source" "$destination"
+        printf '\n  replace %s? [y/N] ' "$(short "$destination")"
+        read -r reply || reply=""
+        printf '\n'
+        if [[ ! "$reply" =~ ^[Yy]$ ]]; then
+            rm -f "$temporary"
+            echo "skip: $relative_source (kept existing file)"
+            return
+        fi
+    fi
+
     if [[ -L "$destination" ]]; then
         old_target="$(readlink "$destination")"
         rm "$destination"
     elif [[ -e "$destination" ]]; then
-        backup="$(next_backup_path "$destination")"
-        mv "$destination" "$backup"
-        echo "backup: $destination -> $backup"
+        if cmp -s "$source" "$destination"; then
+            rm "$destination"
+        else
+            backup="$(next_backup_path "$destination")"
+            mv "$destination" "$backup"
+            echo "backup: $(short "$destination") -> $(short "$backup")"
+        fi
     fi
 
     if ! mv "$temporary" "$destination"; then
@@ -94,7 +133,7 @@ link_config() {
         return 1
     fi
 
-    echo "link: $relative_source -> $destination"
+    echo "link: $relative_source -> $(short "$destination")"
 }
 
 for link in "${LINKS[@]}"; do

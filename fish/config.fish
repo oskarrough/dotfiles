@@ -1,11 +1,20 @@
 # Reuse an SSH agent with loaded keys; let keychain recover if needed.
 if not command ssh-add -l >/dev/null 2>&1
     if command -q keychain
-        keychain --eval --quiet id_ed25519 | source
+        keychain --eval --quiet --immediate id_ed25519 | source
     end
 end
 
 set -gx EDITOR nvim
+
+# Dropbox is mounted at a different path on every machine, so derive it from
+# Dropbox's own record instead of hardcoding; DOTFILES and NOTES follow from it.
+if command -q jq
+    set -gx DROPBOX (jq -r '.personal.path // empty' ~/.dropbox/info.json 2>/dev/null)
+end
+test -d "$DROPBOX"; or set -gx DROPBOX "$HOME/Dropbox"
+set -gx DOTFILES "$DROPBOX/Apps/dotfiles"
+set -gx NOTES "$DROPBOX/notes"
 
 # My shortcuts
 abbr v "nvim"
@@ -90,6 +99,9 @@ set -gx PATH $PATH $HOME/.lmstudio/bin
 
 # Added by Antigravity CLI installer
 set -gx PATH "$HOME/.local/bin" $PATH
+
+# Added by flyctl installer
+set -gx PATH "$HOME/.fly/bin" $PATH
 
 if test -f $__fish_config_dir/daytona.completion_script.fish
     source $__fish_config_dir/daytona.completion_script.fish

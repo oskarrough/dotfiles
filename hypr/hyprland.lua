@@ -149,18 +149,23 @@ local function bind_locked_repeating(keys, command)
 end
 
 -- Work around send_shortcut leaving synthetic keys pressed (Hyprland #14099).
+-- Send down+up together on press: a release bind never fires if the mod is let go first, leaving the key stuck.
 local function bind_shortcut(keys, mods, key, desc)
     local shortcut = { mods = mods, key = key, window = "activewindow" }
     hl.bind(keys, hl.dsp.send_key_state({ mods = shortcut.mods, key = shortcut.key, window = shortcut.window, state = "down" }), { description = desc })
-    hl.bind(keys, hl.dsp.send_key_state({ mods = shortcut.mods, key = shortcut.key, window = shortcut.window, state = "up" }), { release = true })
+    hl.bind(keys, hl.dsp.send_key_state({ mods = shortcut.mods, key = shortcut.key, window = shortcut.window, state = "up" }))
 end
 
 bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal), "Launch terminal")
 bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu), "Launch app menu")
+-- Match Omarchy's Voxtype shortcuts: F9 push-to-talk, Super+Ctrl+X toggle.
+bind("SUPER + CTRL + X", hl.dsp.exec_cmd("/home/osk/.local/bin/voxtype record toggle"), "Toggle Voxtype dictation")
+bind("F9", hl.dsp.exec_cmd("/home/osk/.local/bin/voxtype record start"), "Start Voxtype dictation (hold)")
+hl.bind("F9", hl.dsp.exec_cmd("/home/osk/.local/bin/voxtype record stop"), { release = true, description = "Stop Voxtype dictation (release)" })
 bind(mainMod .. " + SHIFT + B", hl.dsp.exec_cmd("xdg-open https://"), "Launch browser")
 bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd(fileManager), "Launch file manager")
 bind(mainMod .. " + SHIFT + O", hl.dsp.exec_cmd('command -v obsidian >/dev/null 2>&1 && obsidian vault="Notes" || xdg-open "obsidian://open?vault=Notes"'), "Launch Obsidian")
-bind("SUPER + SHIFT + P", hl.dsp.exec_cmd("uwsm-app -- 1password"), "Launch 1Password")
+bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("uwsm-app -- 1password"), "Launch 1Password")
 
 bind(mainMod .. " + W", hl.dsp.window.close(), "Close window")
 bind(mainMod .. " + SHIFT + M", hl.dsp.exit(), "Exit Hyprland")
