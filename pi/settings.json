@@ -1,0 +1,27 @@
+{
+  "defaultProvider": "openrouter",
+  "defaultModel": "deepseek/deepseek-v4.1-flash-1017",
+  "defaultThinkingLevel": "medium",
+  "defaultTools": [
+    "+codemode"
+  ],
+  "packages": [
+    "npm:@plannotator/pi-extension",
+    "npm:@ff-labs/pi-fff",
+    "npm:pi-claude-bridge"
+  ],
+  "theme": "dark",
+  "showCacheMissNotices": true,
+  "enableInstallTelemetry": false,
+  "tuiMode": "fullscreen",
+  "hideThinkingBlock": true,
+  "collapseChangelog": true,
+  "quietStartup": true,
+  "enabledModels": [
+    "openai-codex/gpt-6-astra",
+    "openai-codex/gpt-6.1-sol",
+    "claude-bridge/claude-opus-5-5",
+    "openrouter/z-ai/glm-5.3-flash",
+    "openrouter/deepseek/deepseek-v4.1-flash-1017"
+  ]
+}

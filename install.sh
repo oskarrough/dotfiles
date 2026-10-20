@@ -45,6 +45,7 @@ LINKS=(
     "jj/config.toml:$HOME/.config/jj/config.toml"
     "omp/config.yml:$HOME/.omp/agent/config.yml"
     "bb/theme/oskar/theme.css:$HOME/.bb/theme/oskar/theme.css"
+    "pi/settings.json:$HOME/.pi/agent/settings.json"
 )
 
 # Add Windows configs only when WSL can resolve the Windows user profile.
