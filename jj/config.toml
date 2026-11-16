@@ -14,6 +14,8 @@ tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
 [ui]
 default-command = "log" # This way `jj` logs for you, handy
 diff-formatter = ":git"
+diff-editor = ":builtin"
+editor = "nvim"
 
 [remotes.origin]
 auto-track-bookmarks = "*"

@@ -108,3 +108,6 @@ if test -f $__fish_config_dir/daytona.completion_script.fish
 end
 
 
+
+# Machine-local settings, kept out of dotfiles
+test -f ~/.config/fish/local.fish; and source ~/.config/fish/local.fish
